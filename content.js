@@ -193,7 +193,9 @@ if (window.contentScriptInjected !== true) {
             "online",
             "english",
             "steam",
-            "cookie"
+            "cookie",
+            "chat",
+            "shop"
         ];
 
         if (exceptions.includes(word)) {
@@ -206,6 +208,7 @@ if (window.contentScriptInjected !== true) {
             'x',
             'y',
             '@',
+            '#'
             'ee',
             'll',
             'tt',
