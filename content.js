@@ -191,7 +191,11 @@ if (window.contentScriptInjected !== true) {
             "apple",
             "developer",
             "online",
-            "english"
+            "english",
+            "steam",
+            "cookie",
+            "chat",
+            "shop"
         ];
 
         if (exceptions.includes(word)) {
@@ -204,12 +208,17 @@ if (window.contentScriptInjected !== true) {
             'x',
             'y',
             '@',
+            '#'
             'ee',
             'll',
             'tt',
             'gg',
             'rr',
             'ss',
+            'ff',
+            'pp',
+            'oo',
+            'cc',
             '.com',
             '.net',
             '.info',
