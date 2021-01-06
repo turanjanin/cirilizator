@@ -167,39 +167,52 @@ if (window.contentScriptInjected !== true) {
 
     function looksLikeForeignWord(word) {
         word = word.trim().toLowerCase();
+        if (word == "")
+            return false;
+        
+        const serbian_words_with_double_letters = [
+            "poddres",
+            "vakuum",
+            "kontinuum",
+            "zoo",
+            "vodootpor",
+            "tihookeansk"
+        ];
+        
+        for (var serbian_word of serbian_words_with_double_letters) {
+            if (word.includes(serbian_word)) {
+                return false;
+            }
+        }
 
-        const exceptions = [
+        const foreign_words = [
             "username",
-            "password",
-            "facebook",
             "viber",
             "login",
-            "faq",
-            "google",
             "maps",
-            "feed",
             "share",
             "like",
             "subscribe",
-            "e-mail",
-            "email",
+            "mail",
             "tech",
             "linkedin",
             "microsoft",
-            "google",
             "iphone",
-            "apple",
             "developer",
             "online",
             "english",
             "steam",
-            "cookie",
             "chat",
-            "shop"
+            "shop",
+            "github",
+            "chrome",
+            "edge"
         ];
 
-        if (exceptions.includes(word)) {
-            return true;
+        for (var foreign_word of foreign_words) {
+            if (word.includes(foreign_word)) {
+                return true;
+            }
         }
 
         const characters = [
@@ -208,17 +221,26 @@ if (window.contentScriptInjected !== true) {
             'x',
             'y',
             '@',
-            '#'
+            '#',
+            'aa',
+            'bb',
+            'cc',
+            'dd',
             'ee',
-            'll',
-            'tt',
+            'ff',
             'gg',
+            'kk',
+            'll',
+            'mm',
+            'nn',
+            'oo',
+            'pp',
             'rr',
             'ss',
-            'ff',
-            'pp',
-            'oo',
-            'cc',
+            'tt',
+            'uu',
+            'zz',
+            '\'s'
             '.com',
             '.net',
             '.info',
