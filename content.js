@@ -165,95 +165,82 @@ if (window.contentScriptInjected !== true) {
         return words.join(' ');
     }
 
+    const serbianWordsWithDoubleLetters = [
+        "poddres",
+        "vakuum",
+        "kontinuum",
+        "zoo",
+        "vodootpor",
+        "tihookeansk",
+        "koordinat"
+    ];
+
+    const foreignWords = [
+        "username",
+        "viber",
+        "login",
+        "maps",
+        "share",
+        "like",
+        "subscribe",
+        "mail",
+        "tech",
+        "linkedin",
+        "microsoft",
+        "iphone",
+        "developer",
+        "online",
+        "english",
+        "steam",
+        "chat",
+        "shop",
+        "github",
+        "chrome",
+        "edge"
+    ];
+
+    const foreignCharacters = [
+        'q',
+        'w',
+        'x',
+        'y',
+        '@',
+        '#',
+        'aa',
+        'bb',
+        'cc',
+        'dd',
+        'ee',
+        'ff',
+        'gg',
+        'kk',
+        'll',
+        'mm',
+        'nn',
+        'oo',
+        'pp',
+        'rr',
+        'ss',
+        'tt',
+        'uu',
+        'zz',
+        '\'s',
+        '.com',
+        '.net',
+        '.info',
+        '.rs',
+        '.org'
+    ];
+
     function looksLikeForeignWord(word) {
         word = word.trim().toLowerCase();
-        if (word == "")
+        if (word === "" || wordInArray(word, serbianWordsWithDoubleLetters)) {
             return false;
-        
-        const serbian_words_with_double_letters = [
-            "poddres",
-            "vakuum",
-            "kontinuum",
-            "zoo",
-            "vodootpor",
-            "tihookeansk"
-        ];
-        
-        for (var serbian_word of serbian_words_with_double_letters) {
-            if (word.includes(serbian_word)) {
-                return false;
-            }
+        } else if (wordInArray(word, foreignWords) || wordInArray(word, foreignCharacters)) {
+            return true;
+        } else {
+            return false;
         }
-
-        const foreign_words = [
-            "username",
-            "viber",
-            "login",
-            "maps",
-            "share",
-            "like",
-            "subscribe",
-            "mail",
-            "tech",
-            "linkedin",
-            "microsoft",
-            "iphone",
-            "developer",
-            "online",
-            "english",
-            "steam",
-            "chat",
-            "shop",
-            "github",
-            "chrome",
-            "edge"
-        ];
-
-        for (var foreign_word of foreign_words) {
-            if (word.includes(foreign_word)) {
-                return true;
-            }
-        }
-
-        const characters = [
-            'q',
-            'w',
-            'x',
-            'y',
-            '@',
-            '#',
-            'aa',
-            'bb',
-            'cc',
-            'dd',
-            'ee',
-            'ff',
-            'gg',
-            'kk',
-            'll',
-            'mm',
-            'nn',
-            'oo',
-            'pp',
-            'rr',
-            'ss',
-            'tt',
-            'uu',
-            'zz',
-            '\'s'
-            '.com',
-            '.net',
-            '.info',
-            '.rs'
-        ];
-
-        for (var char of characters) {
-            if (word.includes(char)) {
-                return true;
-            }
-        }
-
-        return false;
     }
 
     function convertToCyrillic(str) {
@@ -285,5 +272,14 @@ if (window.contentScriptInjected !== true) {
         }
 
         return out;
+    }
+
+    function wordInArray(word, array) {
+        for (var arrayWord of array) {
+            if (word.includes(arrayWord)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
