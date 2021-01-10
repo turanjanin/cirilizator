@@ -80,6 +80,73 @@ if (window.contentScriptInjected !== true) {
         "š": "ш", // s with caron
     };
 
+    const serbianWordsWithDoubleLetters = [
+        "poddres",
+        "vakuum",
+        "kontinuum",
+        "zoo",
+        "vodootpor",
+        "tihookeansk",
+        "koordinat"
+    ];
+
+    const foreignWords = [
+        "username",
+        "viber",
+        "login",
+        "maps",
+        "share",
+        "like",
+        "subscribe",
+        "mail",
+        "tech",
+        "linkedin",
+        "microsoft",
+        "iphone",
+        "developer",
+        "online",
+        "english",
+        "steam",
+        "chat",
+        "shop",
+        "github",
+        "chrome",
+        "edge"
+    ];
+
+    const foreignCharacters = [
+        'q',
+        'w',
+        'x',
+        'y',
+        '@',
+        '#',
+        'aa',
+        'bb',
+        'cc',
+        'dd',
+        'ee',
+        'ff',
+        'gg',
+        'kk',
+        'll',
+        'mm',
+        'nn',
+        'oo',
+        'pp',
+        'rr',
+        'ss',
+        'tt',
+        'uu',
+        'zz',
+        '\'s',
+        '.com',
+        '.net',
+        '.info',
+        '.rs',
+        '.org'
+    ];
+
     function buildTrie(obj) {
         let trie = {};
         let currentNode;
@@ -172,73 +239,6 @@ if (window.contentScriptInjected !== true) {
 
         return words.join(' ');
     }
-
-    const serbianWordsWithDoubleLetters = [
-        "poddres",
-        "vakuum",
-        "kontinuum",
-        "zoo",
-        "vodootpor",
-        "tihookeansk",
-        "koordinat"
-    ];
-
-    const foreignWords = [
-        "username",
-        "viber",
-        "login",
-        "maps",
-        "share",
-        "like",
-        "subscribe",
-        "mail",
-        "tech",
-        "linkedin",
-        "microsoft",
-        "iphone",
-        "developer",
-        "online",
-        "english",
-        "steam",
-        "chat",
-        "shop",
-        "github",
-        "chrome",
-        "edge"
-    ];
-
-    const foreignCharacters = [
-        'q',
-        'w',
-        'x',
-        'y',
-        '@',
-        '#',
-        'aa',
-        'bb',
-        'cc',
-        'dd',
-        'ee',
-        'ff',
-        'gg',
-        'kk',
-        'll',
-        'mm',
-        'nn',
-        'oo',
-        'pp',
-        'rr',
-        'ss',
-        'tt',
-        'uu',
-        'zz',
-        '\'s',
-        '.com',
-        '.net',
-        '.info',
-        '.rs',
-        '.org'
-    ];
 
     function looksLikeForeignWord(word) {
         word = word.trim().toLowerCase();
