@@ -90,28 +90,77 @@ if (window.contentScriptInjected !== true) {
         "koordinat"
     ];
 
-    const foreignWords = [
+    const commonForeignWords = [
+        "administration",
+        "adobe",
+        "advanced",
+        "alpha",
+        "autocad",
+        "bosch",
+        "canon",
+        "carlsberg",
+        "chat",
+        "chevrolet",
+        "chrome",
+        "cisco",
+        "clio",
+        "cloud",
+        "coca-cola",
+        "cooking",
+        "cpu",
+        "dacia",
+        "default",
+        "developer",
+        "edge",
+        "electronics",
+        "english",
+        "foundation",
+        "gaming",
+        "ghz",
+        "github",
+        "gmail",
+        "gmbh",
+        "gmt",
+        "hdmi",
+        "iphone",
+        "ipod",
+        "javascript",
+        "khz",
+        "like",
+        "linkedin",
+        "login",
+        "mail",
+        "maps",
+        "mastercard",
+        "mercator",
+        "mhz",
+        "microsoft",
+        "mitsubishi",
+        "nvidia",
+        "online",
+        "panasonic",
+        "peugeot",
+        "porsche",
+        "postpaid",
+        "procredit",
+        "renault",
+        "share",
+        "shop",
+        "smartphone",
+        "ssd",
+        "steam",
+        "subscribe",
+        "tech",
+        "technology",
+        "thinkpad",
+        "thread",
+        "topic",
+        "trailer",
+        "unicredit",
         "username",
         "viber",
-        "login",
-        "maps",
-        "share",
-        "like",
-        "subscribe",
-        "mail",
-        "tech",
-        "linkedin",
-        "microsoft",
-        "iphone",
-        "developer",
-        "online",
-        "english",
-        "steam",
-        "chat",
-        "shop",
-        "github",
-        "chrome",
-        "edge"
+        "viii",
+        "visa",
     ];
 
     const foreignCharacters = [
@@ -244,11 +293,13 @@ if (window.contentScriptInjected !== true) {
         word = word.trim().toLowerCase();
         if (word === "" || wordInArray(word, serbianWordsWithDoubleLetters)) {
             return false;
-        } else if (wordInArray(word, foreignWords) || wordInArray(word, foreignCharacters)) {
-            return true;
-        } else {
-            return false;
         }
+
+        if (wordInArray(word, commonForeignWords) || wordInArray(word, foreignCharacters)) {
+            return true;
+        }
+
+        return false;
     }
 
     function convertToCyrillic(str) {
