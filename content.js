@@ -105,14 +105,16 @@ if (window.contentScriptInjected !== true) {
         "cisco",
         "clio",
         "cloud",
-        "coca-cola",
+        "coca-col",
         "cooking",
         "cpu",
         "dacia",
         "default",
         "developer",
+        "e-mail",
         "edge",
         "electronics",
+        "email",
         "english",
         "foundation",
         "gaming",
@@ -122,7 +124,7 @@ if (window.contentScriptInjected !== true) {
         "gmbh",
         "gmt",
         "hdmi",
-        "iphone",
+        "iphon",
         "ipod",
         "javascript",
         "khz",
@@ -149,7 +151,7 @@ if (window.contentScriptInjected !== true) {
         "smartphone",
         "ssd",
         "steam",
-        "subscribe",
+        "subscrib",
         "tech",
         "technology",
         "thinkpad",
@@ -157,6 +159,7 @@ if (window.contentScriptInjected !== true) {
         "topic",
         "trailer",
         "unicredit",
+        "url",
         "username",
         "viber",
         "viii",
@@ -295,7 +298,11 @@ if (window.contentScriptInjected !== true) {
             return false;
         }
 
-        if (wordInArray(word, commonForeignWords) || wordInArray(word, foreignCharacters)) {
+        if (wordStartsWith(word, commonForeignWords)) {
+            return true;
+        }
+
+        if (wordInArray(word, foreignCharacters)) {
             return true;
         }
 
@@ -333,12 +340,23 @@ if (window.contentScriptInjected !== true) {
         return out;
     }
 
+    function wordStartsWith(word, array) {
+        for (let arrayWord of array) {
+            if (word.startsWith(arrayWord)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     function wordInArray(word, array) {
         for (var arrayWord of array) {
             if (word.includes(arrayWord)) {
                 return true;
             }
         }
+
         return false;
     }
 }
