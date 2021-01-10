@@ -81,13 +81,19 @@ if (window.contentScriptInjected !== true) {
     };
 
     const serbianWordsWithDoubleLetters = [
+        "ddor",
+        "dss",
+        "dvadesettrog",
+        "epp",
+        "gss",
+        "kss",
+        "mmf",
         "poddres",
-        "vakuum",
-        "kontinuum",
-        "zoo",
-        "vodootpor",
-        "tihookeansk",
-        "koordinat"
+        "posttraum",
+        "ptt",
+        "sbb",
+        "sssr",
+        "tridesettrog",
     ];
 
     const commonForeignWords = [
@@ -96,6 +102,9 @@ if (window.contentScriptInjected !== true) {
         "advanced",
         "alpha",
         "autocad",
+        "bluetooth",
+        "book",
+        "boot",
         "bosch",
         "canon",
         "carlsberg",
@@ -107,6 +116,7 @@ if (window.contentScriptInjected !== true) {
         "cloud",
         "coca-col",
         "cooking",
+        "cool",
         "cpu",
         "dacia",
         "default",
@@ -116,6 +126,8 @@ if (window.contentScriptInjected !== true) {
         "electronics",
         "email",
         "english",
+        "facebook",
+        "food",
         "foundation",
         "gaming",
         "ghz",
@@ -123,14 +135,19 @@ if (window.contentScriptInjected !== true) {
         "gmail",
         "gmbh",
         "gmt",
+        "good",
+        "google",
         "hdmi",
         "iphon",
         "ipod",
         "javascript",
+        "joomla",
         "khz",
         "like",
         "linkedin",
         "login",
+        "look",
+        "macbook",
         "mail",
         "maps",
         "mastercard",
@@ -138,14 +155,17 @@ if (window.contentScriptInjected !== true) {
         "mhz",
         "microsoft",
         "mitsubishi",
+        "notebook",
         "nvidia",
         "online",
+        "outlook",
         "panasonic",
         "peugeot",
         "porsche",
         "postpaid",
         "procredit",
         "renault",
+        "school",
         "share",
         "shop",
         "smartphone",
@@ -156,6 +176,7 @@ if (window.contentScriptInjected !== true) {
         "technology",
         "thinkpad",
         "thread",
+        "tool",
         "topic",
         "trailer",
         "unicredit",
@@ -173,23 +194,19 @@ if (window.contentScriptInjected !== true) {
         'y',
         '@',
         '#',
-        'aa',
         'bb',
         'cc',
         'dd',
-        'ee',
         'ff',
         'gg',
         'kk',
         'll',
         'mm',
         'nn',
-        'oo',
         'pp',
         'rr',
         'ss',
         'tt',
-        'uu',
         'zz',
         '\'s',
         '.com',
@@ -294,7 +311,11 @@ if (window.contentScriptInjected !== true) {
 
     function looksLikeForeignWord(word) {
         word = word.trim().toLowerCase();
-        if (word === "" || wordInArray(word, serbianWordsWithDoubleLetters)) {
+        if (word === "") {
+            return false;
+        }
+
+        if (wordStartsWith(word, serbianWordsWithDoubleLetters)) {
             return false;
         }
 
