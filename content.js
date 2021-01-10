@@ -40,7 +40,9 @@ if (window.contentScriptInjected !== true) {
         "Č": "Ч",
         "Č": "Ч", // C with caron
         "DŽ": "Џ",
+        "DŽ": "Џ", // D + Z with caron
         "Dž": "Џ",
+        "Dž": "Џ", // D + z with caron
         "Dz": "Џ",
         "Š": "Ш",
         "Š": "Ш", // S with caron
@@ -53,6 +55,7 @@ if (window.contentScriptInjected !== true) {
         "dj": "ђ",
         "e": "е",
         "ž": "ж",
+        "ž": "ж", // z with caron
         "z": "з",
         "i": "и",
         "j": "ј",
@@ -76,6 +79,7 @@ if (window.contentScriptInjected !== true) {
         "č": "ч",
         "č": "ч", // c with caron
         "dž": "џ",
+        "dž": "џ", // d + z with caron
         "š": "ш",
         "š": "ш", // s with caron
     };
