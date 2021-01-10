@@ -9,10 +9,12 @@ if (window.contentScriptInjected !== true) {
         "G": "Г",
         "D": "Д",
         "Đ": "Ђ",
+        "Ð": "Ђ",
         "DJ": "Ђ",
         "Dj": "Ђ",
         "E": "Е",
         "Ž": "Ж",
+        "Ž": "Ž", // Z with caron
         "Z": "З",
         "I": "И",
         "J": "Ј",
@@ -30,15 +32,18 @@ if (window.contentScriptInjected !== true) {
         "S": "С",
         "T": "Т",
         "Ć": "Ћ",
+        "Ć": "Ћ", // C with acute accent
         "U": "У",
         "F": "Ф",
         "H": "Х",
         "C": "Ц",
         "Č": "Ч",
+        "Č": "Ч", // C with caron
         "DŽ": "Џ",
         "Dž": "Џ",
         "Dz": "Џ",
         "Š": "Ш",
+        "Š": "Ш", // S with caron
         "a": "а",
         "b": "б",
         "v": "в",
@@ -63,13 +68,16 @@ if (window.contentScriptInjected !== true) {
         "s": "с",
         "t": "т",
         "ć": "ћ",
+        "ć": "ћ", // c with acute accent
         "u": "у",
         "f": "ф",
         "h": "х",
         "c": "ц",
         "č": "ч",
+        "č": "ч", // c with caron
         "dž": "џ",
         "š": "ш",
+        "š": "ш", // s with caron
     };
 
     function buildTrie(obj) {
