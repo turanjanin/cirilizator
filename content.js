@@ -14,7 +14,7 @@ if (window.contentScriptInjected !== true) {
         "Dj": "Ђ",
         "E": "Е",
         "Ž": "Ж",
-        "Ž": "Ž", // Z with caron
+        "Ž": "Ж", // Z with caron
         "Z": "З",
         "I": "И",
         "J": "Ј",
