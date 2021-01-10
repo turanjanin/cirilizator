@@ -165,73 +165,82 @@ if (window.contentScriptInjected !== true) {
         return words.join(' ');
     }
 
+    const serbianWordsWithDoubleLetters = [
+        "poddres",
+        "vakuum",
+        "kontinuum",
+        "zoo",
+        "vodootpor",
+        "tihookeansk",
+        "koordinat"
+    ];
+
+    const foreignWords = [
+        "username",
+        "viber",
+        "login",
+        "maps",
+        "share",
+        "like",
+        "subscribe",
+        "mail",
+        "tech",
+        "linkedin",
+        "microsoft",
+        "iphone",
+        "developer",
+        "online",
+        "english",
+        "steam",
+        "chat",
+        "shop",
+        "github",
+        "chrome",
+        "edge"
+    ];
+
+    const foreignCharacters = [
+        'q',
+        'w',
+        'x',
+        'y',
+        '@',
+        '#',
+        'aa',
+        'bb',
+        'cc',
+        'dd',
+        'ee',
+        'ff',
+        'gg',
+        'kk',
+        'll',
+        'mm',
+        'nn',
+        'oo',
+        'pp',
+        'rr',
+        'ss',
+        'tt',
+        'uu',
+        'zz',
+        '\'s',
+        '.com',
+        '.net',
+        '.info',
+        '.rs',
+        '.org'
+    ];
+
     function looksLikeForeignWord(word) {
         word = word.trim().toLowerCase();
-
-        const exceptions = [
-            "username",
-            "password",
-            "facebook",
-            "viber",
-            "login",
-            "faq",
-            "google",
-            "maps",
-            "feed",
-            "share",
-            "like",
-            "subscribe",
-            "e-mail",
-            "email",
-            "tech",
-            "linkedin",
-            "microsoft",
-            "google",
-            "iphone",
-            "apple",
-            "developer",
-            "online",
-            "english",
-            "steam",
-            "cookie",
-            "chat",
-            "shop"
-        ];
-
-        if (exceptions.includes(word)) {
+        if (word === "" || wordInArray(word, serbianWordsWithDoubleLetters)) {
+            return false;
+        } else if (wordInArray(word, foreignWords) || wordInArray(word, foreignCharacters)) {
             return true;
+        } else {
+            return false;
         }
-
-        const characters = [
-            'q',
-            'w',
-            'x',
-            'y',
-            '@',
-            '#'
-            'ee',
-            'll',
-            'tt',
-            'gg',
-            'rr',
-            'ss',
-            'ff',
-            'pp',
-            'oo',
-            'cc',
-            '.com',
-            '.net',
-            '.info',
-            '.rs'
-        ];
-
-        for (var char of characters) {
-            if (word.includes(char)) {
-                return true;
-            }
-        }
-
-        return false;
     }
 
     function convertToCyrillic(str) {
@@ -263,5 +272,14 @@ if (window.contentScriptInjected !== true) {
         }
 
         return out;
+    }
+
+    function wordInArray(word, array) {
+        for (var arrayWord of array) {
+            if (word.includes(arrayWord)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
