@@ -80,6 +80,7 @@ if (window.contentScriptInjected !== true) {
         "č": "ч", // c with caron
         "dž": "џ",
         "dž": "џ", // d + z with caron
+        "dz": "џ",
         "š": "ш",
         "š": "ш", // s with caron
     };
@@ -222,6 +223,122 @@ if (window.contentScriptInjected !== true) {
         '.org'
     ];
 
+    const digraphExceptions = {
+        "dj": [
+            "adjektiv",
+            "adjunkt",
+            "izblijedjel",
+            "nadjaha",
+            "nadjača",
+            "nadjunači",
+            "nenadjačan",
+            "odjah",
+            "odjav",
+            "odjaš",
+            "odjeb",
+            "odjeci",
+            "odjed",
+            "odjek",
+            "odjel",
+            "odjezd",
+            "odjur",
+            "podjamči",
+            "podjar",
+            "podjarmi",
+            "podjednak",
+            "podjel",
+            "podjezič",
+            "predjel",
+            "razdjel",
+            "udjel",
+            "vindjakn",
+            "zapodjen",
+            "zdjel",
+        ],
+        "dz": [
+            "budzašto",
+            "lindzi",
+            "nadzemaljsk",
+            "nadzemn",
+            "nadzid",
+            "nadzir",
+            "nadznanj",
+            "nadzor",
+            "odzada",
+            "odziv",
+            "odzvanja",
+            "odzvoni",
+            "podzadaci",
+            "podzadat",
+            "podzakon",
+            "podzakup",
+            "podzemaljsk",
+            "podzemlj",
+            "podzemn",
+            "podznaci",
+            "podznak",
+            "predzadnj",
+            "predznaci",
+            "predznak",
+            "predznanje",
+        ],
+        "dž": [
+            "feldžandarmerij",
+            "nadždrel",
+            "nadžet",
+            "nadživ",
+            "nadživljava",
+            "nadžnje",
+            "nadžup",
+            "odžali",
+            "odžari",
+            "odžive",
+            "odživljava",
+            "odžubor",
+            "odžvaka",
+            "podžanr",
+            "podžnje",
+            "podžupan",
+            "predželuda",
+            "predživot",
+        ],
+        "nj": [
+            "anjon",
+            "injekc",
+            "injekt",
+            "konjug",
+            "konjunk",
+            "nekonjug",
+            "nekonjunk",
+            "tanjug",
+            "vanjezičk",
+        ],
+    };
+
+    // See: https://en.wikipedia.org/wiki/Zero-width_non-joiner
+    const digraphReplacements = {
+        "dj": {
+            "dj": "d\u200Cj",
+            "Dj": "D\u200Cj",
+            "DJ": "D\u200CJ",
+        },
+        "dz": {
+            "dz": "d\u200Cz",
+            "Dz": "D\u200Cz",
+            "DZ": "D\u200CZ",
+        },
+        "dž": {
+            "dž": "d\u200Cž",
+            "Dž": "D\u200Cž",
+            "DŽ": "D\u200CŽ",
+        },
+        "nj": {
+            "nj": "n\u200Cj",
+            "Nj": "N\u200Cj",
+            "NJ": "N\u200CJ",
+        }
+    };
+
     function buildTrie(obj) {
         let trie = {};
         let currentNode;
@@ -337,6 +454,8 @@ if (window.contentScriptInjected !== true) {
     }
 
     function convertToCyrillic(str) {
+        str = splitDigraphs(str);
+
         let out = '';
 
         for (var i = 0, sLen = str.length; i < sLen; i++) {
@@ -365,6 +484,31 @@ if (window.contentScriptInjected !== true) {
         }
 
         return out;
+    }
+
+    function splitDigraphs(str) {
+        const lowercaseStr = str.trim().toLowerCase();
+
+        for (const digraph in digraphExceptions) {
+            if (!lowercaseStr.includes(digraph)) {
+                continue;
+            }
+
+            for (const word of digraphExceptions[digraph]) {
+                if (!lowercaseStr.startsWith(word)) {
+                    continue;
+                }
+
+                // Split all possible occurrences, regardless of case.
+                for (const key in digraphReplacements[digraph]) {
+                    str = str.replace(key, digraphReplacements[digraph][key]);
+                }
+
+                break;
+            }
+        }
+
+        return str;
     }
 
     function wordStartsWith(word, array) {
