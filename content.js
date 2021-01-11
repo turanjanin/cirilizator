@@ -362,7 +362,7 @@ if (window.contentScriptInjected !== true) {
 
     var trie = buildTrie(initialMap);
     processText(document.body, 'cache-replace');
-    console.log('Caching and replacing text on page');
+    console.log("Ћирилизатор - Caching and replacing text on page " + window.location.href);
 
     // Parse DOM on change
     const observer = new MutationObserver(mutations => {
@@ -383,14 +383,13 @@ if (window.contentScriptInjected !== true) {
     // Listen for messages from background script.
     chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         if (message.isEnabled === window.isEnabled) {
-            console.log("State is unchanged, doing nothing");
             return;
         }
 
-        console.log("Received message ", (message.isEnabled ? "enabled" : "disabled"));
+        console.log("Ћирилизатор - Update status to " + (message.isEnabled ? "enabled" : "disabled") + " for " + window.location.href);
 
         window.isEnabled = message.isEnabled;
-        processText(document.body, isEnabled ? 'replace' : 'restore');
+        processText(document.body, message.isEnabled ? 'replace' : 'restore');
     });
 
     // Recursively process text within descendent text nodes.
