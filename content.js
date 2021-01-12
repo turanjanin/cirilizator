@@ -1,7 +1,7 @@
 if (window.contentScriptInjected !== true) {
     window.contentScriptInjected = true;
 
-    var isEnabled = true;
+    let isEnabled = true;
     const initialMap = {
         "A": "А",
         "B": "Б",
@@ -362,10 +362,10 @@ if (window.contentScriptInjected !== true) {
         let trie = {};
         let currentNode;
 
-        for (var key in obj) {
+        for (let key in obj) {
             currentNode = trie;
 
-            for (var char of key) {
+            for (let char of key) {
                 currentNode[char] = currentNode[char] || {};
                 currentNode = currentNode[char];
             }
@@ -376,20 +376,20 @@ if (window.contentScriptInjected !== true) {
         return trie;
     }
 
-    var trie = buildTrie(initialMap);
-    processText(document.body, 'cache-replace');
+    const trie = buildTrie(initialMap);
+    processText(document, 'cache-replace');
     console.log("Ћирилизатор - Caching and replacing text on page " + window.location.href);
 
     // Parse DOM on change
     const observer = new MutationObserver(mutations => {
-        for (var mutation of mutations) {
-            for (var node of mutation.addedNodes) {
+        for (let mutation of mutations) {
+            for (let node of mutation.addedNodes) {
                 processText(node, !document.hidden && isEnabled ? 'cache-replace' : 'cache');
             }
         }
     });
 
-    observer.observe(document.body, {
+    observer.observe(document, {
         childList: true,
         attributes: true,
         characterData: true,
@@ -405,14 +405,21 @@ if (window.contentScriptInjected !== true) {
         console.log("Ћирилизатор - Update status to " + (message.isEnabled ? "enabled" : "disabled") + " for " + window.location.href);
 
         window.isEnabled = message.isEnabled;
-        processText(document.body, message.isEnabled ? 'replace' : 'restore');
+        processText(document, message.isEnabled ? 'replace' : 'restore');
     });
 
     // Recursively process text within descendent text nodes.
     function processText(parentNode, mode) {
-        for (var node of parentNode.childNodes) {
+        if (parentNode.nodeType === 3) {
+            processTextNode(parentNode, mode);
+        }
+
+        for (let node of parentNode.childNodes) {
             switch (node.nodeType) {
                 case 1:    // Element node
+                    processAttribute(node, 'title', mode);
+                    processAttribute(node, 'placeholder', mode);
+
                 case 11:   // Document fragment node
                     if (!/SCRIPT|STYLE/.test(node.nodeName)) {
                         processText(node, mode);
@@ -420,28 +427,59 @@ if (window.contentScriptInjected !== true) {
 
                     break;
                 case 3:    // Text node
-                    switch (mode) {
-                        case 'cache':    // Cache text
-                            node.originalText = node.nodeValue;
-                            break;
-                        case 'restore':    // Restore text
-                            node.nodeValue = node.originalText;
-                            break;
-                        case 'cache-replace':    // Cache and replace text
-                            node.originalText = node.nodeValue;
-                        case 'replace':    // Replace text
-                            let str = node.originalText || node.nodeValue;
-
-                            node.nodeValue = convertNode(str);
-                    }
+                    processTextNode(node, mode);
             }
         }
     }
 
-    function convertNode(str) {
-        let words = str.split(' ');
+    function processTextNode(node, mode) {
+        if (mode === "cache") {
+            node.originalText = node.nodeValue;
+            return;
+        }
 
-        for (var i = 0, length = words.length; i < length; i++) {
+        if (mode === "restore") {
+            node.nodeValue = node.originalText;
+            return;
+        }
+
+        if (mode === "cache-replace") {
+            node.originalText = node.nodeValue;
+        }
+
+        let text = node.originalText || node.nodeValue;
+        node.nodeValue = transliterate(text);
+    }
+
+    function processAttribute(node, attribute, mode) {
+        if (node.getAttribute(attribute) === null) {
+            return;
+        }
+
+        node.originalAttributes = node.originalAttributes || {};
+
+        if (mode === "cache") {
+            node.originalAttributes[attribute] = node.getAttribute(attribute);
+            return;
+        }
+
+        if (mode === "restore") {
+            node.setAttribute(attribute, node.originalAttributes[attribute]);
+            return;
+        }
+
+        if (mode === "cache-replace") {
+            node.originalAttributes[attribute] = node.getAttribute(attribute);
+        }
+
+        let text = node.originalAttributes[attribute] || node.getAttribute(attribute);
+        node.setAttribute(attribute, transliterate(text));
+    }
+
+    function transliterate(text) {
+        let words = text.split(' ');
+
+        for (let i = 0, length = words.length; i < length; i++) {
             if (!looksLikeForeignWord(words[i])) {
                 words[i] = convertToCyrillic(words[i]);
             }
@@ -476,7 +514,7 @@ if (window.contentScriptInjected !== true) {
 
         let out = '';
 
-        for (var i = 0, sLen = str.length; i < sLen; i++) {
+        for (let i = 0, sLen = str.length; i < sLen; i++) {
             if (!trie[str[i]]) {
                 out += str[i];
             } else {
@@ -540,7 +578,7 @@ if (window.contentScriptInjected !== true) {
     }
 
     function wordInArray(word, array) {
-        for (var arrayWord of array) {
+        for (let arrayWord of array) {
             if (word.includes(arrayWord)) {
                 return true;
             }
