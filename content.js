@@ -91,13 +91,21 @@ if (window.contentScriptInjected !== true) {
         "dvadesettrog",
         "epp",
         "gss",
+        "interreakc",
+        "interresor",
         "kss",
         "mmf",
+        "ommetar",
+        "poddirektor",
         "poddres",
+        "posttrans",
         "posttraum",
         "ptt",
         "sbb",
         "sssr",
+        "superračun",
+        "transseks",
+        "transsibir",
         "tridesettrog",
     ];
 
@@ -121,8 +129,10 @@ if (window.contentScriptInjected !== true) {
         "cloud",
         "coca-col",
         "conditions",
+        "cookie",
         "cooking",
         "cool",
+        "covid",
         "cpu",
         "dacia",
         "default",
@@ -149,6 +159,7 @@ if (window.contentScriptInjected !== true) {
         "javascript",
         "joomla",
         "khz",
+        "league",
         "like",
         "linkedin",
         "login",
@@ -167,15 +178,19 @@ if (window.contentScriptInjected !== true) {
         "outlook",
         "panasonic",
         "peugeot",
+        "podcast",
         "porsche",
         "postpaid",
         "printscreen",
         "procredit",
         "renault",
         "school",
+        "selfie",
         "share",
+        "shift",
         "shop",
         "smartphone",
+        "space",
         "ssd",
         "steam",
         "subscrib",
@@ -219,6 +234,7 @@ if (window.contentScriptInjected !== true) {
         'tt',
         'zz',
         '\'s',
+        '\'t',
         '.com',
         '.net',
         '.info',
@@ -444,11 +460,11 @@ if (window.contentScriptInjected !== true) {
             return false;
         }
 
-        if (wordStartsWith(word, commonForeignWords)) {
+        if (wordInArray(word, foreignCharacters)) {
             return true;
         }
 
-        if (wordInArray(word, foreignCharacters)) {
+        if (wordStartsWith(word, commonForeignWords)) {
             return true;
         }
 
