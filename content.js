@@ -97,7 +97,8 @@ if (window.contentScriptInjected !== true) {
         "š": "ш", // s with caron
     };
 
-    const serbianWordsWithDoubleLetters = [
+    const serbianWordsWithForeignCharacterCombinations = [
+        "aparthejd",
         "ddor",
         "dss",
         "dvadesettrog",
@@ -110,8 +111,11 @@ if (window.contentScriptInjected !== true) {
         "ommetar",
         "poddirektor",
         "poddres",
+        "posthumn",
         "posttrans",
         "posttraum",
+        "pothranj",
+        "prethod",
         "ptt",
         "sbb",
         "sssr",
@@ -223,7 +227,7 @@ if (window.contentScriptInjected !== true) {
         "visa",
     ];
 
-    const foreignCharacters = [
+    const foreignCharacterCombinations = [
         'q',
         'w',
         'x',
@@ -253,6 +257,7 @@ if (window.contentScriptInjected !== true) {
         'zz',
         'ch',
         'gh',
+        'th',
         '\'s',
         '\'t',
         '.com',
@@ -524,11 +529,11 @@ if (window.contentScriptInjected !== true) {
             return false;
         }
 
-        if (wordStartsWith(word, serbianWordsWithDoubleLetters)) {
+        if (wordStartsWith(word, serbianWordsWithForeignCharacterCombinations)) {
             return false;
         }
 
-        if (wordInArray(word, foreignCharacters)) {
+        if (wordInArray(word, foreignCharacterCombinations)) {
             return true;
         }
 
