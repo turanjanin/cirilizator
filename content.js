@@ -377,8 +377,8 @@ if (window.contentScriptInjected !== true) {
     }
 
     const trie = buildTrie(initialMap);
-    processText(document, 'cache-replace');
     console.log("Ћирилизатор - Caching and replacing text on page " + window.location.href);
+    processText(document, 'cache-replace');
 
     // Parse DOM on change
     const observer = new MutationObserver(mutations => {
@@ -398,20 +398,24 @@ if (window.contentScriptInjected !== true) {
 
     // Listen for messages from background script.
     chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-        if (message.isEnabled === window.isEnabled) {
+        if (message.isEnabled === isEnabled) {
             return;
         }
 
-        console.log("Ћирилизатор - Update status to " + (message.isEnabled ? "enabled" : "disabled") + " for " + window.location.href);
+        isEnabled = message.isEnabled;
 
-        window.isEnabled = message.isEnabled;
-        processText(document, message.isEnabled ? 'replace' : 'restore');
+        console.log("Ћирилизатор - Update status to " + (isEnabled ? "enabled" : "disabled") + " for " + window.location.href);
+        processText(document, isEnabled ? 'replace' : 'restore');
     });
 
     // Recursively process text within descendent text nodes.
     function processText(parentNode, mode) {
         if (parentNode.nodeType === 3) {
             processTextNode(parentNode, mode);
+        }
+
+        if (/SCRIPT|STYLE/.test(parentNode.nodeName)) {
+            return;
         }
 
         for (let node of parentNode.childNodes) {
@@ -477,6 +481,10 @@ if (window.contentScriptInjected !== true) {
     }
 
     function transliterate(text) {
+        if (text.trim().length === 0) {
+            return text;
+        }
+
         let words = text.split(' ');
 
         for (let i = 0, length = words.length; i < length; i++) {
