@@ -272,6 +272,7 @@ if (window.contentScriptInjected !== true) {
             "odjel",
             "odjezd",
             "odjur",
+            "ovdje",
             "podjamči",
             "podjar",
             "podjarmi",
