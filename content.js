@@ -44,6 +44,7 @@ if (window.contentScriptInjected !== true) {
         "DŽ": "Џ",
         "Ǆ": "Џ", 
         "DŽ": "Џ", // D + Z with caron
+        "DZ": "Џ",
         "Dž": "Џ",
         "Dž": "Џ", // D + z with caron
         "Dz": "Џ",
@@ -296,6 +297,7 @@ if (window.contentScriptInjected !== true) {
         ],
         "dz": [
             "budzašto",
+            "dz", // Dom Zdravlja
             "lindzi",
             "nadzemaljsk",
             "nadzemn",
