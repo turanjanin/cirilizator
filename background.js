@@ -26,6 +26,51 @@ function updateExtensionIcon(isEnabled) {
 chrome.runtime.onInstalled.addListener(function () {
     console.log('Extension installed');
 
+    const redirects = [
+          { url: '*://jadovno.com/*?lng=lat',    match: '^(https?)://jadovno.com/(.*)?lng=lat$',       redirect: '$1://jadovno.com/$2?lng=cir' }
+        , { url: '*://lat.rtrs.tv/*',            match: '^(https?)://lat.rtrs.tv/(.*?)$',              redirect: '$1://www.rtrs.tv/$2'         }
+        , { url: '*://rs-lat.sputniknews.com/*', match: '^(https?)://rs-lat.sputniknews.com/(.*?)$',   redirect: '$1://rs.sputniknews.com/$2'  }
+        , { url: '*://www.politika.rs/sr/*',     match: '^(https?)://www.politika.rs/sr/(.*)$'         redirect: '$1://www.politika.rs/scc/$2' }
+        , { url: '*://www.novosti.rs/*',         match: '^(https?)://www.novosti.rs(?!/c)/(.*?)$',     redirect: '$1://www.novosti.rs/c/$2'    }
+    ];
+
+    var filter = { urls: [], types: [ 'main_frame' ] };
+
+    for (var i = 0; i < redirects.length; i++) {
+        filter.urls.push(redirects[i].url);
+    }
+
+    function onRequest(info)
+    {
+        var redirect = info.url;
+
+        for (var i = 0; i < redirects.length; i++) {
+            var rx = new RegExp(redirects[i].match, 'gi');
+            var matches = rx.exec(info.url);
+            if (matches) {
+                redirect = redirects[i].redirect;
+                for (var j = 0; j < matches.length; j++) {
+                    var str = matches[j] || '';
+                    redirect = redirect.replace(new RegExp('\\$' + j, 'gi'), str);
+                }
+
+                break;
+            }
+        }
+
+        if (redirect == info.url)
+        {
+            return;
+        }
+
+//        console.log(info);
+//        console.log(redirect);
+
+        return { redirectUrl: redirect };
+    }
+
+    browser.webRequest.onBeforeRequest.addListener(onRequest, filter, ["blocking"]);
+
     chrome.storage.local.get({ enabledDomains: [] }, function (result) {
         if (result.enabledDomains.length > 0) {
             return;
@@ -123,7 +168,7 @@ function updateActiveTab() {
         }
     }
 
-    chrome.tabs.query({active: true, currentWindow: true}, updateTab);
+    chrome.tabs.query({active: true, lastFocusedWindow: true, currentWindow: true}, updateTab);
 }
 
 function getDomain(urlString)
@@ -151,6 +196,5 @@ chrome.browserAction.onClicked.addListener(toggleDomain);
 chrome.tabs.onUpdated.addListener(updateActiveTab);
 chrome.tabs.onActivated.addListener(updateActiveTab);
 chrome.windows.onFocusChanged.addListener(updateActiveTab);
-
 
 updateActiveTab();

@@ -25,9 +25,13 @@
         "128": "icons/icon-on-128.png"
     },
     "permissions": [
-        "<all_urls>",
+        "webRequest",
+        "webRequestBlocking",
+        "webNavigation",
+        "storage",
         "tabs",
-        "storage"
+        "http://*/*",
+        "https://*/*"
     ],
     "browser_specific_settings": {
         "gecko": {
