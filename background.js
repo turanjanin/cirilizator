@@ -52,15 +52,14 @@ chrome.runtime.onInstalled.addListener(function () {
         , { url: '*://www.uns.org.rs/sr/*',            match: '^(https?)://www.uns.org.rs/sr/(.*)$',                  redirect: '$1://www.uns.org.rs/$2'                      }
     ];
 
-    var filter = { urls: [], types: [ 'main_frame' ] };
+    let filter = { urls: [], types: [ 'main_frame' ] };
 
-    for (var i = 0; i < redirects.length; i++) {
+    for (let i = 0; i < redirects.length; i++) {
         filter.urls.push(redirects[i].url);
     }
 
-    function onRequest(info)
-    {
-        var redirect = info.url;
+    function onRequest(info) {
+        let redirect = info.url;
 
         for (var i = 0; i < redirects.length; i++) {
             var rx = new RegExp(redirects[i].match, 'gi');
@@ -76,13 +75,9 @@ chrome.runtime.onInstalled.addListener(function () {
             }
         }
 
-        if (redirect == info.url)
-        {
+        if (redirect == info.url) {
             return;
         }
-
-//        console.log(info);
-//        console.log(redirect);
 
         return { redirectUrl: redirect };
     }
