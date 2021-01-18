@@ -44,7 +44,7 @@ if (window.contentScriptInjected !== true) {
         "DŽ": "Џ",
         "Ǆ": "Џ", 
         "DŽ": "Џ", // D + Z with caron
-        "DZ": "Џ",
+        //"DZ": "Џ",
         "Dž": "Џ",
         "Dž": "Џ", // D + z with caron
         "Dz": "Џ",
@@ -92,7 +92,7 @@ if (window.contentScriptInjected !== true) {
         "dž": "џ",
         "ǆ": "џ",
         "dž": "џ", // d + z with caron
-        "dz": "џ",
+        //"dz": "џ",
         "š": "ш",
         "š": "ш", // s with caron
     };
@@ -300,9 +300,8 @@ if (window.contentScriptInjected !== true) {
             "zapodjen",
             "zdjel",
         ],
-        "dz": [
+        /*"dz": [
             "budzašto",
-            "dz", // Dom Zdravlja
             "lindzi",
             "nadzemaljsk",
             "nadzemn",
@@ -327,7 +326,7 @@ if (window.contentScriptInjected !== true) {
             "predznaci",
             "predznak",
             "predznanje",
-        ],
+        ],*/
         "dž": [
             "feldžandarmerij",
             "nadždrel",
@@ -368,11 +367,11 @@ if (window.contentScriptInjected !== true) {
             "Dj": "D\u200Cj",
             "DJ": "D\u200CJ",
         },
-        "dz": {
+        /*"dz": {
             "dz": "d\u200Cz",
             "Dz": "D\u200Cz",
             "DZ": "D\u200CZ",
-        },
+        },*/
         "dž": {
             "dž": "d\u200Cž",
             "Dž": "D\u200Cž",
