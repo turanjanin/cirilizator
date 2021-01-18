@@ -2,7 +2,7 @@ if (window.contentScriptInjected !== true) {
     window.contentScriptInjected = true;
 
     let isEnabled = true;
-    const initialMap = {
+    let initialMap = {
         "A": "А",
         "B": "Б",
         "V": "В",
@@ -96,6 +96,21 @@ if (window.contentScriptInjected !== true) {
         "š": "ш",
         "š": "ш", // s with caron
     };
+
+
+    // Temporary fix for United Media sites with faulty "Exo 2" font.
+    const fontAffectedSites = [
+        "ba.n1info.com",
+        "hr.n1info.com",
+        "rs.n1info.com",
+        "sportklub.rs",
+    ];
+    if (fontAffectedSites.includes(window.location.hostname)) {
+        initialMap["đ"] = "ћ";
+        initialMap["ć"] = "ђ";
+        initialMap["ć"] = "ђ";
+    }
+
 
     const serbianWordsWithForeignCharacterCombinations = [
         "aparthejd",
