@@ -546,34 +546,40 @@ if (window.contentScriptInjected !== true) {
     function convertToCyrillic(str) {
         str = splitDigraphs(str);
 
-        let out = '';
+        let result = '';
 
-        for (let i = 0, sLen = str.length; i < sLen; i++) {
+        for (let i = 0, length = str.length; i < length; i++) {
             if (!trie[str[i]]) {
-                out += str[i];
-            } else {
-                // Search trie
-                let currentNode = trie[str[i]];
-                let depth = 0;
-                let result = '';
-                while (true) {
-                    if (currentNode.value) {
-                        result = currentNode.value;
-                    }
-
-                    if (currentNode[str[i + depth + 1]]) {
-                        currentNode = currentNode[str[i + ++depth]];
-                    } else {
-                        break;
-                    }
-                }
-                // Insert original text if match is incomplete
-                out += result || str.substr(i, depth + 1);
-                i += depth;
+                result += str[i];
+                continue;
             }
+
+            // Search trie
+            let currentNode = trie[str[i]];
+            let currentDepth = 0;
+            let valueDepth = 0;
+            let value = '';
+
+            while (true) {
+                if (currentNode.value) {
+                    value = currentNode.value;
+                    valueDepth = currentDepth;
+                }
+
+                if (currentNode[str[i + currentDepth + 1]]) {
+                    currentDepth++;
+                    currentNode = currentNode[str[i + currentDepth]];
+                } else {
+                    break;
+                }
+            }
+
+            // Insert original text if match is incomplete
+            result += value || str.substr(i, valueDepth + 1);
+            i += valueDepth;
         }
 
-        return out;
+        return result;
     }
 
     function splitDigraphs(str) {
