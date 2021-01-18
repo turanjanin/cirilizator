@@ -138,12 +138,14 @@ if (window.contentScriptInjected !== true) {
         "transseks",
         "transsibir",
         "tridesettrog",
+        "urla",
     ];
 
     const commonForeignWords = [
         "administration",
         "adobe",
         "advanced",
+        "advertising",
         "alpha",
         "autocad",
         "bluetooth",
@@ -174,6 +176,7 @@ if (window.contentScriptInjected !== true) {
         "email",
         "english",
         "facebook",
+        "fashion",
         "food",
         "foundation",
         "gaming",
