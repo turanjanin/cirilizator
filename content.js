@@ -409,7 +409,7 @@ if (window.contentScriptInjected !== true) {
           "odjeć",
           "odjec",
           "odjur",
-          "odsjed"
+          "odsjed",
           "odsjedje",
           "ondje",
           "opredje",
