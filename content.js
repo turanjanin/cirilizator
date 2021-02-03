@@ -42,7 +42,7 @@ if (window.contentScriptInjected !== true) {
         "Č": "Ч",
         "Č": "Ч", // C with caron
         "DŽ": "Џ",
-        "Ǆ": "Џ", 
+        "Ǆ": "Џ",
         "DŽ": "Џ", // D + Z with caron
         //"DZ": "Џ",
         "Dž": "Џ",
@@ -99,7 +99,7 @@ if (window.contentScriptInjected !== true) {
 
 
     // Temporary fix for United Media sites with faulty "Exo 2" font.
-    const fontAffectedSites = [
+    var fontAffectedSites = [
         "ba.n1info.com",
         "hr.n1info.com",
         "rs.n1info.com",
@@ -112,7 +112,7 @@ if (window.contentScriptInjected !== true) {
     }
 
 
-    const serbianWordsWithForeignCharacterCombinations = [
+    var serbianWordsWithForeignCharacterCombinations = [
         "aparthejd",
         "ddor",
         "dss",
@@ -141,7 +141,7 @@ if (window.contentScriptInjected !== true) {
         "urla",
     ];
 
-    const commonForeignWords = [
+    var commonForeignWords = [
         "administration",
         "adobe",
         "advanced",
@@ -245,7 +245,7 @@ if (window.contentScriptInjected !== true) {
         "visa",
     ];
 
-    const foreignCharacterCombinations = [
+    var foreignCharacterCombinations = [
         'q',
         'w',
         'x',
@@ -285,7 +285,7 @@ if (window.contentScriptInjected !== true) {
         '.org'
     ];
 
-    const digraphExceptions = {
+    var digraphExceptions = {
         "dj": [
             "adjektiv",
             "adjunkt",
@@ -379,7 +379,7 @@ if (window.contentScriptInjected !== true) {
     };
 
     // See: https://en.wikipedia.org/wiki/Zero-width_non-joiner
-    const digraphReplacements = {
+    var digraphReplacements = {
         "dj": {
             "dj": "d\u200Cj",
             "Dj": "D\u200Cj",
@@ -420,7 +420,7 @@ if (window.contentScriptInjected !== true) {
         return trie;
     }
 
-    const trie = buildTrie(initialMap);
+    var trie = buildTrie(initialMap);
     console.log("Ћирилизатор - Caching and replacing text on page " + window.location.href);
     processText(document, 'cache-replace');
 
