@@ -190,8 +190,7 @@ function toggleDomain() {
 }
 
 
-function transliteratePage()
-{
+function transliteratePage() {
     chrome.tabs.executeScript(currentTab.id, {
         allFrames: true,
         file: '/content.js',
@@ -202,8 +201,7 @@ function transliteratePage()
     chrome.tabs.sendMessage(currentTab.id, { isEnabled: true });
 }
 
-function showOriginalPage()
-{
+function showOriginalPage() {
     updateExtensionIcon(false);
     chrome.tabs.sendMessage(currentTab.id, { isEnabled: false });
 }
@@ -229,8 +227,7 @@ function updateActiveTab() {
     chrome.tabs.query({active: true, currentWindow: true}, updateTab);
 }
 
-function getDomain(urlString)
-{
+function getDomain(urlString) {
     if (urlString === "") {
         return "";
     }
