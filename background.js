@@ -5,7 +5,7 @@ var enabledRedirects = [];
 var redirects = [
       { enabled: false, filter: '*://jadovno.com/*',              rules: [ { match: '^(https?)://jadovno.com/(.*)?lng=lat$',                redirect: '$1://jadovno.com/$2?lng=cir'                 } ] }
     , { enabled: false, filter: '*://*.sputniknews.com/*',        rules: [ { match: '^(https?)://rs-lat.sputniknews.com/(.*?)$',            redirect: '$1://rs.sputniknews.com/$2'                  } ] }
-    , { enabled: false, filter: '*://lat.rtrs.tv/*',              rules: [ { match: '^(https?)://lat.rtrs.tv/(.*?)$',                       redirect: '$1://www.rtrs.tv/$2'                         } ] }
+    , { enabled: false, filter: '*://*.rtrs.tv/*',                rules: [ { match: '^(https?)://lat.rtrs.tv/(.*?)$',                       redirect: '$1://www.rtrs.tv/$2'                         } ] }
     , { enabled: false, filter: '*://pravda.rs/*',                rules: [ { match: '^(https?)://pravda.rs/lat/(.*)$',                      redirect: '$1://pravda.rs/$2'                           } ] }
     , { enabled: false, filter: '*://sr.wikipedia.org/*',         rules: [ { match: '^(https?)://sr.wikipedia.org/sr-el/(.*)$',             redirect: '$1://sr.wikipedia.org/sr-ec/$2'              } ] }
     , { enabled: false, filter: '*://srna.rs/*',                  rules: [ { match: '^(https?)://srna.rs/$',                                redirect: '$1://srna.rs/index1.aspx'                    }
@@ -401,7 +401,7 @@ chrome.storage.local.get({ enabledRedirects: [] }, function (result) {
     }
 
     const filter = { urls: urls, types: [ 'main_frame' ] };
-    browser.webRequest.onBeforeRequest.addListener(onRequest, filter, ["blocking"]);
+    chrome.webRequest.onBeforeRequest.addListener(onRequest, filter, ["blocking"]);
 });
 
 chrome.storage.local.get({enabledDomains: []}, function (result) {
