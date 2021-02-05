@@ -28,7 +28,7 @@ var redirects = [
     , { enabled: false, filter: '*://www.rtv.rs/*',               rules: [ { match: '^(https?)://www.rtv.rs/sr_lat/(.*)$',                        redirect: '$1://www.rtv.rs/sr_ci/$2'                    } ] }
     , { enabled: false, filter: '*://www.rtvbn.com/*',            rules: [ { match: '^(https?)://www.rtvbn.com/(?!cirilica(/?))(.*)$',            redirect: '$1://www.rtvbn.com/cirilica/$3'              } ] }
     , { enabled: false, filter: '*://www.standard.rs/*',          rules: [ { match: '^(https?)://www.standard.rs/(.*)?alphabet=latin(.*)$',       redirect: '$1://www.standard.rs/$2?alphabet=cyrillic$3' } ] }
-    , { enabled: false, filter: '*://www.uns.org.rs/sr*',         rules: [ { match: '^(https?)://www.uns.org.rs/sr.html$',                        redirect: '$1://www.uns.org.rs/'                        }
+    , { enabled: false, filter: '*://www.uns.org.rs/*',           rules: [ { match: '^(https?)://www.uns.org.rs/sr.html$',                        redirect: '$1://www.uns.org.rs/'                        }
                                                                          , { match: '^(https?)://www.uns.org.rs/sr/(.*)$',                        redirect: '$1://www.uns.org.rs/$2'                      } ] }
     , { enabled: false, filter: '*://www.vs.rs/*',                rules: [ { match: '^(https?)://www.vs.rs/sr_lat(.*)$',                          redirect: '$1://www.vs.rs/sr_cyr$2'                     } ] }
     , { enabled: false, filter: '*://www.yugoimport.com/*',       rules: [ { match: '^(https?)://www.yugoimport.com/lat(.*)$',                    redirect: '$1://www.yugoimport.com/cir$2'               } ] }
