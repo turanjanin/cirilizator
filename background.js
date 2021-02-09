@@ -4,35 +4,44 @@ var enabledRedirects = [];
 var lastRedirectedUrl = '';
 
 var redirects = [
-      { enabled: false, filter: '*://jadovno.com/*',              rules: [ { match: '^(https?)://jadovno.com/(.*)?lng=lat$',                      redirect: '$1://jadovno.com/$2?lng=cir'                 } ] }
-    , { enabled: false, filter: '*://*.sputniknews.com/*',        rules: [ { match: '^(https?)://rs-lat.sputniknews.com/(.*?)$',                  redirect: '$1://rs.sputniknews.com/$2'                  } ] }
-    , { enabled: false, filter: '*://*.rtrs.tv/*',                rules: [ { match: '^(https?)://lat.rtrs.tv/(.*?)$',                             redirect: '$1://www.rtrs.tv/$2'                         } ] }
-    , { enabled: false, filter: '*://pravda.rs/*',                rules: [ { match: '^(https?)://pravda.rs/lat/(.*)$',                            redirect: '$1://pravda.rs/$2'                           } ] }
-    , { enabled: false, filter: '*://sr.wikipedia.org/*',         rules: [ { match: '^(https?)://sr.wikipedia.org/(?:wiki|sr|sr-el)/(.*)$',       redirect: '$1://sr.wikipedia.org/sr-ec/$2'              } ] }
-    , { enabled: false, filter: '*://srna.rs/*',                  rules: [ { match: '^(https?)://srna.rs/$',                                      redirect: '$1://srna.rs/index1.aspx'                    }
-                                                                         , { match: '^(https?)://srna.rs/(.*)(?<!1).aspx(.*)$',                   redirect: '$1://srna.rs/$21.aspx$3'                     } ] }
-    , { enabled: false, filter: '*://tanjug.rs/*',                rules: [ { match: '^(https?)://tanjug.rs/$',                                    redirect: '$1://tanjug.rs/index1.aspx'                  }
-                                                                         , { match: '^(https?)://tanjug.rs/(.*)(?<!1).aspx(.*)$',                 redirect: '$1://tanjug.rs/$21.aspx$3'                   } ] }
-    , { enabled: false, filter: '*://www.arhiv-beograda.org/*',   rules: [ { match: '^(https?)://www.arhiv-beograda.org/sr/(.*)$',                redirect: '$1://www.arhiv-beograda.org/rs/$2'           } ] }
-    , { enabled: false, filter: '*://www.bbc.com/serbian/*',      rules: [ { match: '^(https?)://www.bbc.com/serbian/lat(/?)(.*)$',               redirect: '$1://www.bbc.com/serbian/cyr$2$3'            } ] }
-    , { enabled: false, filter: '*://www.glassrpske.com/*',       rules: [ { match: '^(https?)://www.glassrpske.com/lat(/?)(.*)$',                redirect: '$1://www.glassrpske.com/cir$2$3'             } ] }
-    , { enabled: false, filter: '*://www.glaszapadnesrbije.rs/*', rules: [ { match: '^(https?)://www.glaszapadnesrbije.rs/(.*)#lat$',             redirect: '$1://www.glaszapadnesrbije.rs/$2#cyr'        } ] }
-    , { enabled: false, filter: '*://www.mod.gov.rs/*',           rules: [ { match: '^(https?)://www.mod.gov.rs/lat(.*)$',                        redirect: '$1://www.mod.gov.rs/cir$2'                   } ] }
-    , { enabled: false, filter: '*://www.novosti.rs/*',           rules: [ { match: '^(https?)://www.novosti.rs/(?!c/)(.*?)$',                    redirect: '$1://www.novosti.rs/c/$2'                    } ] }
-    , { enabled: false, filter: '*://www.nspm.rs/*',              rules: [ { match: '^(https?)://www.nspm.rs/(.*)?alphabet=l$',                   redirect: '$1://www.nspm.rs/$2?alphabet=c'              } ] }
-    , { enabled: false, filter: '*://www.politika.rs/*',          rules: [ { match: '^(https?)://www.politika.rs/sr(/?)(.*)$',                    redirect: '$1://www.politika.rs/scc$2$3'                } ] }
-    , { enabled: false, filter: '*://posta.rs/*',                 rules: [ { match: '^(https?)://(?:.*\.)?posta.rs/lat/(.*)$',                    redirect: '$1://posta.rs/cir/$2'                        }
-                                                                         , { match: '^(https?)://(?:.*\.)?posta.rs/index-privreda-lat.aspx$',     redirect: '$1://posta.rs/index-privreda-cir.aspx'       }
-                                                                         , { match: '^(https?)://(?:.*\.)?posta.rs/index-stanovnistvo-lat.aspx$', redirect: '$1://posta.rs/index.aspx'                    } ] }
-    , { enabled: false, filter: '*://www.rts.rs/*',               rules: [ { match: '^(https?)://www.rts.rs/(.*)/sr.html$',                       redirect: '$1://www.rts.rs/$2/ci.html'                  }
-                                                                         , { match: '^(https?)://www.rts.rs/(.*)/sr/(.*)$',                       redirect: '$1://www.rts.rs/$2/ci/$3'                    } ] }
-    , { enabled: false, filter: '*://www.rtv.rs/*',               rules: [ { match: '^(https?)://www.rtv.rs/sr_lat/(.*)$',                        redirect: '$1://www.rtv.rs/sr_ci/$2'                    } ] }
-    , { enabled: false, filter: '*://www.rtvbn.com/*',            rules: [ { match: '^(https?)://www.rtvbn.com/(?!cirilica(/?))(.*)$',            redirect: '$1://www.rtvbn.com/cirilica/$3'              } ] }
-    , { enabled: false, filter: '*://www.standard.rs/*',          rules: [ { match: '^(https?)://www.standard.rs/(.*)?alphabet=latin(.*)$',       redirect: '$1://www.standard.rs/$2?alphabet=cyrillic$3' } ] }
-    , { enabled: false, filter: '*://www.uns.org.rs/*',           rules: [ { match: '^(https?)://www.uns.org.rs/sr.html$',                        redirect: '$1://www.uns.org.rs/'                        }
-                                                                         , { match: '^(https?)://www.uns.org.rs/sr/(.*)$',                        redirect: '$1://www.uns.org.rs/$2'                      } ] }
-    , { enabled: false, filter: '*://www.vs.rs/*',                rules: [ { match: '^(https?)://www.vs.rs/sr_lat(.*)$',                          redirect: '$1://www.vs.rs/sr_cyr$2'                     } ] }
-    , { enabled: false, filter: '*://www.yugoimport.com/*',       rules: [ { match: '^(https?)://www.yugoimport.com/lat(.*)$',                    redirect: '$1://www.yugoimport.com/cir$2'               } ] }
+      { enabled: false, filter: '*://elementarium.cpn.rs/*',      rules: [ { match: '^(https?)://elementarium.cpn.rs/(.*)?script=lat$',               redirect: '$1://elementarium.cpn.rs/$2?script=cir'      }
+                                                                         , { match: '^(https?)://elementarium.cpn.rs/((?!.*\?script=(?:cir|lat)).*)', redirect: '$1://elementarium.cpn.rs/$2?script=cir'      } ] }
+    , { enabled: false, filter: '*://jadovno.com/*',              rules: [ { match: '^(https?)://jadovno.com/(.*)?lng=lat$',                          redirect: '$1://jadovno.com/$2?lng=cir'                 }
+                                                                         , { match: '^(https?)://jadovno.com/((?!.*\?lng=(?:cir|lat)).*)',            redirect: '$1://jadovno.com/$2?lng=cir'                 } ] }
+    , { enabled: false, filter: '*://nbs.rs/*',                   rules: [ { match: '^(https?)://nbs.rs/sr/(.*)$',                                    redirect: '$1://nbs.rs/sr_RS/$2'                        } ] }
+    , { enabled: false, filter: '*://*.sputniknews.com/*',        rules: [ { match: '^(https?)://rs-lat.sputniknews.com/(.*?)$',                      redirect: '$1://rs.sputniknews.com/$2'                  } ] }
+    , { enabled: false, filter: '*://*.rtrs.tv/*',                rules: [ { match: '^(https?)://lat.rtrs.tv/(.*?)$',                                 redirect: '$1://www.rtrs.tv/$2'                         } ] }
+    , { enabled: false, filter: '*://pravda.rs/*',                rules: [ { match: '^(https?)://pravda.rs/lat/(.*)$',                                redirect: '$1://pravda.rs/$2'                           } ] }
+    , { enabled: false, filter: '*://sr.wikipedia.org/*',         rules: [ { match: '^(https?)://sr.wikipedia.org/(?:wiki|sr|sr-el)/(.*)$',           redirect: '$1://sr.wikipedia.org/sr-ec/$2'              } ] }
+    , { enabled: false, filter: '*://srna.rs/*',                  rules: [ { match: '^(https?)://srna.rs/$',                                          redirect: '$1://srna.rs/index1.aspx'                    }
+                                                                         , { match: '^(https?)://srna.rs/(.*)(?<!1).aspx(.*)$',                       redirect: '$1://srna.rs/$21.aspx$3'                     } ] }
+    , { enabled: false, filter: '*://tanjug.rs/*',                rules: [ { match: '^(https?)://tanjug.rs/$',                                        redirect: '$1://tanjug.rs/index1.aspx'                  }
+                                                                         , { match: '^(https?)://tanjug.rs/(.*)(?<!1).aspx(.*)$',                     redirect: '$1://tanjug.rs/$21.aspx$3'                   } ] }
+    , { enabled: false, filter: '*://www.arhiv-beograda.org/*',   rules: [ { match: '^(https?)://www.arhiv-beograda.org/sr/(.*)$',                    redirect: '$1://www.arhiv-beograda.org/rs/$2'           } ] }
+    , { enabled: false, filter: '*://www.beograd.rs/*',           rules: [ { match: '^(https?)://www.beograd.rs/lat(.*)$',                            redirect: '$1://www.beograd.rs/cir$2'                   } ] }
+    , { enabled: false, filter: '*://www.bbc.com/serbian/*',      rules: [ { match: '^(https?)://www.bbc.com/serbian/lat(/?)(.*)$',                   redirect: '$1://www.bbc.com/serbian/cyr$2$3'            } ] }
+    , { enabled: false, filter: '*://www.glassrpske.com/*',       rules: [ { match: '^(https?)://www.glassrpske.com/lat(/?)(.*)$',                    redirect: '$1://www.glassrpske.com/cir$2$3'             } ] }
+    , { enabled: false, filter: '*://www.glaszapadnesrbije.rs/*', rules: [ { match: '^(https?)://www.glaszapadnesrbije.rs/(.*)#lat$',                 redirect: '$1://www.glaszapadnesrbije.rs/$2#cyr'        } ] }
+    , { enabled: false, filter: '*://www.intermagazin.rs/*',      rules: [ { match: '^(https?)://www.intermagazin.rs/(.*)?lang=lat$',                 redirect: '$1://www.intermagazin.rs/$2?lang=cir'        }
+                                                                         , { match: '^(https?)://www.intermagazin.rs/((?!.*\?lang=(?:cir|lat)).*)',   redirect: '$1://www.intermagazin.rs/$2?lang=cir'        } ] }
+    , { enabled: false, filter: '*://www.kragujevac.rs/*',        rules: [ { match: '^(https?)://www.kragujevac.rs/(.*)?script=lat$',                 redirect: '$1://www.kragujevac.rs/$2?script=cir'        }
+                                                                         , { match: '^(https?)://www.kragujevac.rs/((?!.*\?script=(?:cir|lat)).*)',   redirect: '$1://www.kragujevac.rs/$2?script=cir'        } ] }
+    , { enabled: false, filter: '*://www.mod.gov.rs/*',           rules: [ { match: '^(https?)://www.mod.gov.rs/lat(.*)$',                            redirect: '$1://www.mod.gov.rs/cir$2'                   } ] }
+    , { enabled: false, filter: '*://www.novosti.rs/*',           rules: [ { match: '^(https?)://www.novosti.rs/(?!c/)(.*?)$',                        redirect: '$1://www.novosti.rs/c/$2'                    } ] }
+    , { enabled: false, filter: '*://www.nspm.rs/*',              rules: [ { match: '^(https?)://www.nspm.rs/(.*)?alphabet=l$',                       redirect: '$1://www.nspm.rs/$2?alphabet=c'              } ] }
+    , { enabled: false, filter: '*://www.politika.rs/*',          rules: [ { match: '^(https?)://www.politika.rs/sr(/?)(.*)$',                        redirect: '$1://www.politika.rs/scc$2$3'                } ] }
+    , { enabled: false, filter: '*://posta.rs/*',                 rules: [ { match: '^(https?)://(?:.*\.)?posta.rs/lat/(.*)$',                        redirect: '$1://posta.rs/cir/$2'                        }
+                                                                         , { match: '^(https?)://(?:.*\.)?posta.rs/index-privreda-lat.aspx$',         redirect: '$1://posta.rs/index-privreda-cir.aspx'       }
+                                                                         , { match: '^(https?)://(?:.*\.)?posta.rs/index-stanovnistvo-lat.aspx$',     redirect: '$1://posta.rs/index.aspx'                    } ] }
+    , { enabled: false, filter: '*://www.rts.rs/*',               rules: [ { match: '^(https?)://www.rts.rs/(.*)/sr.html$',                           redirect: '$1://www.rts.rs/$2/ci.html'                  }
+                                                                         , { match: '^(https?)://www.rts.rs/(.*)/sr/(.*)$',                           redirect: '$1://www.rts.rs/$2/ci/$3'                    } ] }
+    , { enabled: false, filter: '*://www.rtv.rs/*',               rules: [ { match: '^(https?)://www.rtv.rs/sr_lat/(.*)$',                            redirect: '$1://www.rtv.rs/sr_ci/$2'                    } ] }
+    , { enabled: false, filter: '*://www.rtvbn.com/*',            rules: [ { match: '^(https?)://www.rtvbn.com/(?!cirilica(/?))(.*)$',                redirect: '$1://www.rtvbn.com/cirilica/$3'              } ] }
+    , { enabled: false, filter: '*://www.standard.rs/*',          rules: [ { match: '^(https?)://www.standard.rs/(.*)?alphabet=latin(.*)$',           redirect: '$1://www.standard.rs/$2?alphabet=cyrillic$3' } ] }
+    , { enabled: false, filter: '*://www.uns.org.rs/*',           rules: [ { match: '^(https?)://www.uns.org.rs/sr.html$',                            redirect: '$1://www.uns.org.rs/'                        }
+                                                                         , { match: '^(https?)://www.uns.org.rs/sr/(.*)$',                            redirect: '$1://www.uns.org.rs/$2'                      } ] }
+    , { enabled: false, filter: '*://www.vs.rs/*',                rules: [ { match: '^(https?)://www.vs.rs/sr_lat(.*)$',                              redirect: '$1://www.vs.rs/sr_cyr$2'                     } ] }
+    , { enabled: false, filter: '*://www.yugoimport.com/*',       rules: [ { match: '^(https?)://www.yugoimport.com/lat(.*)$',                        redirect: '$1://www.yugoimport.com/cir$2'               } ] }
 ];
 
 function matchRule(url, rule) {
@@ -109,6 +118,7 @@ chrome.runtime.onInstalled.addListener(function () {
             'autoblog.rs',
             'balkanrock.com',
             'balkans.aljazeera.net',
+            'bankar.rs',
             'besplatniprogrami.org',
             'beta.rs',
             'bif.rs',
@@ -118,6 +128,7 @@ chrome.runtime.onInstalled.addListener(function () {
             'daljine.rs',
             'direktno.rs',
             'fonet.rs',
+            'glasbanjaluke.net',
             'happytv.rs',
             'hbogo.rs',
             'hotsport.rs',
@@ -147,6 +158,7 @@ chrome.runtime.onInstalled.addListener(function () {
             'sportklub.rs',
             'sportskastranajuga.com',
             'sportske.net',
+            'srpskainfo.com',
             'startit.rs',
             'studiob.rs',
             'svet-scandal.rs',
@@ -155,6 +167,7 @@ chrome.runtime.onInstalled.addListener(function () {
             'toppress.rs',
             'topzdravlje.rs',
             'ucentar.rs',
+            'vijestisrpske.com',
             'vrelegume.rs',
             'wannabemagazine.com',
             'www.011info.com',
