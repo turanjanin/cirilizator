@@ -336,15 +336,19 @@ function updateActiveTab() {
 }
 
 function getDomain(urlString) {
-    if (urlString === "") {
-        return "";
+    if (urlString === '') {
+        return '';
     }
 
     const url = new URL(urlString)
-    const supportedProtocols = ["https:", "http:", "ftp:", "file:"];
 
+    if (url.protocol === 'file:') {
+        return url.pathname;
+    }
+
+    const supportedProtocols = ['https:', 'http:', 'ftp:'];
     if (!supportedProtocols.includes(url.protocol)) {
-        return "";
+        return '';
     }
 
     return url.hostname;
