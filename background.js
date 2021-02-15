@@ -49,18 +49,9 @@ function getRedirectIndex(url) {
     return -1;
 }
 
-function isRedirected(url) {
-    let redirectIndex = getRedirectIndex(url);
-    if (redirectIndex != -1) {
-        return redirects[redirectIndex].enabled;
-    }
-
-    return false;
-}
-
 function setRedirect(filter, enabled) {
     for (let i = 0; i < redirects.length; i++) {
-        if (redirects[i].filter == filter) {
+        if (redirects[i].filter === filter) {
             redirects[i].enabled = enabled;
             return;
         }
@@ -257,12 +248,12 @@ function toggleDomain() {
     }
 
     let redirectIndex = getRedirectIndex(currentTab.url);
-    if (redirectIndex != -1) {
-
+    if (redirectIndex !== -1) {
         let filter = redirects[redirectIndex].filter;
+        const redirectIsEnabled = redirects[redirectIndex].enabled;
         redirects[redirectIndex].enabled = !redirects[redirectIndex].enabled;
 
-        if (!redirects[redirectIndex].enabled) {
+        if (redirectIsEnabled) {
             enabledRedirects = enabledRedirects.filter(item => item !== filter);
             chrome.storage.local.set({ enabledRedirects: enabledRedirects });
             showOriginalPage();
@@ -272,7 +263,7 @@ function toggleDomain() {
 
         enabledRedirects.push(filter);
         chrome.storage.local.set({ enabledRedirects: enabledRedirects });
-        redirectedPage();
+        redirectPage(redirects[redirectIndex]);
 
         return;
     }
@@ -304,8 +295,15 @@ function transliteratePage() {
     chrome.tabs.sendMessage(currentTab.id, { isEnabled: true });
 }
 
-function redirectedPage() {
+function redirectPage(redirect) {
     updateExtensionIcon(true);
+
+    const newUrl = getCyrillicVersionUrl(currentTab.url, redirect);
+    if (currentTab.url !== newUrl) {
+        chrome.tabs.executeScript(currentTab.id, {
+            code: `window.location.replace('${newUrl}');`
+        });
+    }
 }
 
 function showOriginalPage() {
@@ -321,9 +319,9 @@ function updateActiveTab() {
             const currentTabDomain = getDomain(currentTab.url);
 
             if (currentTabDomain) {
-
-                if (isRedirected(currentTab.url)) {
-                    redirectedPage();
+                let redirectIndex = getRedirectIndex(currentTab.url);
+                if (redirectIndex !== -1 && redirects[redirectIndex].enabled) {
+                    redirectPage(currentTab.url, redirects[redirectIndex]);
                 } else if (enabledDomains.includes(currentTabDomain)) {
                     transliteratePage();
                 } else {
@@ -351,6 +349,50 @@ function getDomain(urlString) {
     return url.hostname;
 }
 
+function getCyrillicVersionUrl(originalUrl, redirect) {
+    if (!redirect.enabled) {
+        return originalUrl;
+    }
+
+    let cyrillicVersionUrl = originalUrl;
+
+    for (let i = 0; i < redirect.rules.length; i++) {
+        const rule = redirect.rules[i];
+
+        const rx = new RegExp(rule.match, 'gi');
+        const matches = rx.exec(originalUrl);
+
+        if (matches) {
+            cyrillicVersionUrl = rule.redirect;
+
+            for (let j = 0; j < matches.length; j++) {
+                let str = matches[j] || '';
+                cyrillicVersionUrl = cyrillicVersionUrl.replace(new RegExp('\\$' + j, 'gi'), str);
+            }
+
+            break;
+        }
+    }
+
+    return cyrillicVersionUrl;
+}
+
+function handleNewRequest(info) {
+    let redirectUrl = info.url;
+    const redirectIndex = getRedirectIndex(info.url);
+
+    if (redirectIndex !== -1) {
+        const redirect = redirects[redirectIndex];
+        redirectUrl = getCyrillicVersionUrl(info.url, redirect);
+    }
+
+    if (redirectUrl === info.url) {
+        return;
+    }
+
+    return { redirectUrl: redirectUrl };
+}
+
 chrome.storage.local.get({ enabledRedirects: [] }, function (result) {
     enabledRedirects = result.enabledRedirects;
     console.log('Loaded redirects', enabledRedirects);
@@ -360,52 +402,12 @@ chrome.storage.local.get({ enabledRedirects: [] }, function (result) {
     }
 
     let urls = [];
-    for (var i = 0; i < redirects.length; i++) {
+    for (let i = 0; i < redirects.length; i++) {
         urls.push(redirects[i].filter);
     }
 
-    function onRequest(info) {
-
-        let redirectUrl = info.url;
-        const redirectIndex = getRedirectIndex(info.url)
-
-        if (redirectIndex != -1) {
-            const redirect = redirects[redirectIndex];
-
-            if (redirect.enabled) {
-
-                for (let i = 0; i < redirect.rules.length; i++) {
-
-                    const rule = redirect.rules[i];
-
-                    const rx = new RegExp(rule.match, 'gi');
-                    const matches = rx.exec(info.url);
-
-                    if (matches) {
-
-                        redirectUrl = rule.redirect;
-
-                        for (let j = 0; j < matches.length; j++) {
-
-                            let str = matches[j] || '';
-                            redirectUrl = redirectUrl.replace(new RegExp('\\$' + j, 'gi'), str);
-                        }
-
-                        break;
-                    }
-                }
-            }
-        }
-
-        if (redirectUrl == info.url) {
-            return;
-        }
-
-        return { redirectUrl: redirectUrl };
-    }
-
-    const filter = { urls: urls, types: [ 'main_frame' ] };
-    chrome.webRequest.onBeforeRequest.addListener(onRequest, filter, ["blocking"]);
+    const filter = { urls: urls, types: ['main_frame'] };
+    chrome.webRequest.onBeforeRequest.addListener(handleNewRequest, filter, ['blocking']);
 });
 
 chrome.storage.local.get({enabledDomains: []}, function (result) {
