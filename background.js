@@ -7,7 +7,7 @@ var redirects = [
     , { enabled: false, filter: '*://*.sputniknews.com/*',        rules: [ { match: '^(https?)://rs-lat.sputniknews.com/(.*?)$',                  redirect: '$1://rs.sputniknews.com/$2'                  } ] }
     , { enabled: false, filter: '*://*.rtrs.tv/*',                rules: [ { match: '^(https?)://lat.rtrs.tv/(.*?)$',                             redirect: '$1://www.rtrs.tv/$2'                         } ] }
     , { enabled: false, filter: '*://pravda.rs/*',                rules: [ { match: '^(https?)://pravda.rs/lat/(.*)$',                            redirect: '$1://pravda.rs/$2'                           } ] }
-    , { enabled: false, filter: '*://sr.wikipedia.org/*',         rules: [ { match: '^(https?)://sr.wikipedia.org/sr-el/(.*)$',                   redirect: '$1://sr.wikipedia.org/sr-ec/$2'              } ] }
+    , { enabled: false, filter: '*://sr.wikipedia.org/*',         rules: [ { match: '^(https?)://sr.wikipedia.org/(?:wiki|sr|sr-el)/(.*)$',       redirect: '$1://sr.wikipedia.org/sr-ec/$2'              } ] }
     , { enabled: false, filter: '*://srna.rs/*',                  rules: [ { match: '^(https?)://srna.rs/$',                                      redirect: '$1://srna.rs/index1.aspx'                    }
                                                                          , { match: '^(https?)://srna.rs/(.*)(?<!1).aspx(.*)$',                   redirect: '$1://srna.rs/$21.aspx$3'                     } ] }
     , { enabled: false, filter: '*://tanjug.rs/*',                rules: [ { match: '^(https?)://tanjug.rs/$',                                    redirect: '$1://tanjug.rs/index1.aspx'                  }
