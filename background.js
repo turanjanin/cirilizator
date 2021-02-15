@@ -19,7 +19,7 @@ var redirects = [
     , { enabled: false, filter: '*://www.mod.gov.rs/*',           rules: [ { match: '^(https?)://www.mod.gov.rs/lat(.*)$',                        redirect: '$1://www.mod.gov.rs/cir$2'                   } ] }
     , { enabled: false, filter: '*://www.novosti.rs/*',           rules: [ { match: '^(https?)://www.novosti.rs/(?!c/)(.*?)$',                    redirect: '$1://www.novosti.rs/c/$2'                    } ] }
     , { enabled: false, filter: '*://www.nspm.rs/*',              rules: [ { match: '^(https?)://www.nspm.rs/(.*)?alphabet=l$',                   redirect: '$1://www.nspm.rs/$2?alphabet=c'              } ] }
-    , { enabled: false, filter: '*://www.politika.rs/*',          rules: [ { match: '^(https?)://www.politika.rs/sr/(.*)$',                       redirect: '$1://www.politika.rs/scc/$2'                 } ] }
+    , { enabled: false, filter: '*://www.politika.rs/*',          rules: [ { match: '^(https?)://www.politika.rs/sr(/?)(.*)$',                    redirect: '$1://www.politika.rs/scc$2$3'                } ] }
     , { enabled: false, filter: '*://posta.rs/*',                 rules: [ { match: '^(https?)://(?:.*\.)?posta.rs/lat/(.*)$',                    redirect: '$1://posta.rs/cir/$2'                        }
                                                                          , { match: '^(https?)://(?:.*\.)?posta.rs/index-privreda-lat.aspx$',     redirect: '$1://posta.rs/index-privreda-cir.aspx'       }
                                                                          , { match: '^(https?)://(?:.*\.)?posta.rs/index-stanovnistvo-lat.aspx$', redirect: '$1://posta.rs/index.aspx'                    } ] }
