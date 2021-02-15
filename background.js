@@ -1,6 +1,7 @@
 var currentTab;
 var enabledDomains = [];
 var enabledRedirects = [];
+var lastRedirectedUrl = '';
 
 var redirects = [
       { enabled: false, filter: '*://jadovno.com/*',              rules: [ { match: '^(https?)://jadovno.com/(.*)?lng=lat$',                      redirect: '$1://jadovno.com/$2?lng=cir'                 } ] }
@@ -389,6 +390,13 @@ function handleNewRequest(info) {
     if (redirectUrl === info.url) {
         return;
     }
+
+    if (redirectUrl === lastRedirectedUrl) {
+        console.log('Redirect loop detected. Aborting...');
+        return;
+    }
+
+    lastRedirectedUrl = redirectUrl;
 
     return { redirectUrl: redirectUrl };
 }
