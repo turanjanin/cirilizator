@@ -8,6 +8,7 @@ var redirects = [
                                                                          , { match: '^(https?)://elementarium.cpn.rs/((?!.*\?script=(?:cir|lat)).*)', redirect: '$1://elementarium.cpn.rs/$2?script=cir'      } ] }
     , { enabled: false, filter: '*://jadovno.com/*',              rules: [ { match: '^(https?)://jadovno.com/(.*)?lng=lat$',                          redirect: '$1://jadovno.com/$2?lng=cir'                 }
                                                                          , { match: '^(https?)://jadovno.com/((?!.*\?lng=(?:cir|lat)).*)',            redirect: '$1://jadovno.com/$2?lng=cir'                 } ] }
+    , { enabled: false, filter: '*://kim.gov.rs/*',               rules: [ { match: '^(https?)://kim.gov.rs/lat/(.*)$',                               redirect: '$1://kim.gov.rs/$2'                          } ] }
     , { enabled: false, filter: '*://nbs.rs/*',                   rules: [ { match: '^(https?)://nbs.rs/sr/(.*)$',                                    redirect: '$1://nbs.rs/sr_RS/$2'                        } ] }
     , { enabled: false, filter: '*://*.sputniknews.com/*',        rules: [ { match: '^(https?)://rs-lat.sputniknews.com/(.*?)$',                      redirect: '$1://rs.sputniknews.com/$2'                  } ] }
     , { enabled: false, filter: '*://*.rtrs.tv/*',                rules: [ { match: '^(https?)://lat.rtrs.tv/(.*?)$',                                 redirect: '$1://www.rtrs.tv/$2'                         } ] }
@@ -187,6 +188,7 @@ chrome.runtime.onInstalled.addListener(function () {
             'www.economy.rs',
             'www.ekapija.com',
             'www.espreso.rs',
+            'www.glas-javnosti.rs',
             'www.glas-zajecara.com',
             'www.glasamerike.net',
             'www.glassumadije.rs',
@@ -194,6 +196,8 @@ chrome.runtime.onInstalled.addListener(function () {
             'www.ikragujevac.com',
             'www.infokg.rs',
             'www.informer.rs',
+            'www.istinomer.rs',
+            'www.istorijskizabavnik.rs',
             'www.itsvet.com',
             'www.juznevesti.com',
             'www.kamatica.com',
@@ -211,6 +215,7 @@ chrome.runtime.onInstalled.addListener(function () {
             'www.nacionalnaklasa.com',
             'www.ndnv.org',
             'www.nedeljnik.rs',
+            'www.nezavisne.com',
             'www.novaenergija.net',
             'www.novimagazin.rs',
             'www.novine.ca',
