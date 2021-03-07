@@ -308,6 +308,7 @@ if (window.contentScriptInjected !== true) {
             "dvonedje",
             "devetonedje",
             "desetonedje",
+            "djb",
             "djev",
             "djed",
             "djejstv",
