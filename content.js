@@ -23,11 +23,13 @@ if (window.contentScriptInjected !== true) {
         "LJ": "Љ",
         "Ǉ": "Љ",
         "Lj": "Љ",
+        "ǈ": "Љ",
         "M": "М",
         "N": "Н",
         "NJ": "Њ",
         "Ǌ": "Њ",
         "Nj": "Њ",
+        "ǋ": "Њ",
         "O": "О",
         "P": "П",
         "R": "Р",
@@ -46,11 +48,13 @@ if (window.contentScriptInjected !== true) {
         "DŽ": "Џ", // D + Z with caron
         //"DZ": "Џ",
         "Dž": "Џ",
+        "ǅ": "Џ",
         "Dž": "Џ", // D + z with caron
         "Dz": "Џ",
         "Š": "Ш",
         "Š": "Ш", // S with caron
         "a": "а",
+        "æ": "ае",
         "b": "б",
         "v": "в",
         "g": "г",
