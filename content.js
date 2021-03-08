@@ -696,7 +696,7 @@ if (window.contentScriptInjected !== true) {
         }
 
         let text = node.originalText || node.nodeValue;
-        node.nodeValue = transliterate(text);
+        transliterateWithLanguageDetection(text, (result) => node.nodeValue = result);
     }
 
     function processAttribute(node, attribute, mode) {
@@ -721,7 +721,25 @@ if (window.contentScriptInjected !== true) {
         }
 
         let text = node.originalAttributes[attribute] || node.getAttribute(attribute);
-        node.setAttribute(attribute, transliterate(text));
+
+        transliterateWithLanguageDetection(text, (result) => node.setAttribute(attribute, result));
+    }
+
+    function transliterateWithLanguageDetection(text, callback) {
+        if (text.length < 10) {
+            callback(transliterate(text));
+            return;
+        }
+
+        chrome.i18n.detectLanguage(text, function (result) {
+            const lang = result.languages[0].language;
+
+            if (['sr', 'bs', 'hr', 'sl'].includes(lang)) {
+                text = transliterate(text);
+            }
+
+            callback(text);
+        });
     }
 
     function transliterate(text) {
