@@ -379,7 +379,6 @@ if (window.contentScriptInjected !== true) {
             "nadjača",
             "nadjeb",
             "nadjev",
-            //"nadjen", - collides with 'нађен'
             "nadjenul",
             "nadjenuo",
             "nadjenut",
@@ -469,7 +468,8 @@ if (window.contentScriptInjected !== true) {
             "raspodje",
             "rasprdje",
             "remekdjel",
-            "rudje",
+            "rudjet",
+            "rudjen",
             "sadje",
             "svagdje",
             "svidje",
