@@ -146,6 +146,8 @@ if (window.contentScriptInjected !== true) {
         "urli"
     ];
 
+
+
     var commonForeignWords = [
         "administration",
         "adobe",
@@ -242,6 +244,10 @@ if (window.contentScriptInjected !== true) {
         "viber",
         "viii",
         "visa",
+    ];
+
+    var wholeForeignWords = [
+        "dj",
     ];
 
     var foreignCharacterCombinations = [
@@ -730,7 +736,12 @@ if (window.contentScriptInjected !== true) {
         let words = text.split(' ');
 
         for (let i = 0, length = words.length; i < length; i++) {
-            if (!looksLikeForeignWord(words[i])) {
+			
+			let index = transliterationIndexOfWordStartsWith(words[i], wholeForeignWords, "-");
+			if(index >= 0) {
+                words[i] = words[i].substring(0, index) + convertToCyrillic(words[i].substring(index));
+            }
+			else if (!looksLikeForeignWord(words[i])) {
                 words[i] = convertToCyrillic(words[i]);
             }
         }
@@ -755,6 +766,10 @@ if (window.contentScriptInjected !== true) {
         if (wordStartsWith(word, commonForeignWords)) {
             return true;
         }
+
+		if (wordMatches(word, wholeForeignWords)) {
+			return true;
+		}
 
         return false;
     }
@@ -842,4 +857,41 @@ if (window.contentScriptInjected !== true) {
 
         return false;
     }
+
+    function wordMatches(word, array) {
+        for (let arrayWord of array) {
+            if (word === arrayWord) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+	/* 
+	 * Retrieves index of the first character of the word that should be transliterated.
+	 * Function examines only words that have a root which is a foreign word, followed by
+	 * some separator character and remainder of the word which is in Serbian.
+	 * Example: dj-evi should be transliterated as dj-еви so the function retrieves 3.
+	 * 
+	 */
+    function transliterationIndexOfWordStartsWith(word, array, charSeparator) {
+
+        word = word.trim().toLowerCase();
+        if (word === "") {
+            return -1;
+        }
+	
+		let appendedForeignWords = array.map(el => el + charSeparator);
+
+        for (let arrayWord of appendedForeignWords) {
+            if (word.startsWith(arrayWord)) {
+                return arrayWord.length;
+            }
+        }
+
+        return -1;
+    }
+
+
 }
