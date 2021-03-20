@@ -115,7 +115,6 @@ if (window.contentScriptInjected !== true) {
         initialMap["ć"] = "ђ";
     }
 
-
     var serbianWordsWithForeignCharacterCombinations = [
         "aparthejd",
         "ddor",
@@ -145,8 +144,6 @@ if (window.contentScriptInjected !== true) {
         "urla",
         "urli"
     ];
-
-
 
     var commonForeignWords = [
         "administration",
@@ -736,12 +733,12 @@ if (window.contentScriptInjected !== true) {
         let words = text.split(' ');
 
         for (let i = 0, length = words.length; i < length; i++) {
-			
-			let index = transliterationIndexOfWordStartsWith(words[i], wholeForeignWords, "-");
-			if(index >= 0) {
+
+            let index = transliterationIndexOfWordStartsWith(words[i], wholeForeignWords, "-");
+            if(index >= 0) {
                 words[i] = words[i].substring(0, index) + convertToCyrillic(words[i].substring(index));
             }
-			else if (!looksLikeForeignWord(words[i])) {
+            else if (!looksLikeForeignWord(words[i])) {
                 words[i] = convertToCyrillic(words[i]);
             }
         }
@@ -767,9 +764,9 @@ if (window.contentScriptInjected !== true) {
             return true;
         }
 
-		if (wordMatches(word, wholeForeignWords)) {
-			return true;
-		}
+        if (wordMatches(word, wholeForeignWords)) {
+            return true;
+        }
 
         return false;
     }
@@ -868,21 +865,20 @@ if (window.contentScriptInjected !== true) {
         return false;
     }
 
-	/* 
-	 * Retrieves index of the first character of the word that should be transliterated.
-	 * Function examines only words that have a root which is a foreign word, followed by
-	 * some separator character and remainder of the word which is in Serbian.
-	 * Example: dj-evi should be transliterated as dj-еви so the function retrieves 3.
-	 * 
-	 */
+    /*
+     * Retrieves index of the first character of the word that should be transliterated.
+     * Function examines only words that have a root that is a foreign word, followed by
+     * some separator character and remainder of the word which is in Serbian.
+     * Example: dj-evi should be transliterated as dj-еви so the function retrieves 3.
+     */
     function transliterationIndexOfWordStartsWith(word, array, charSeparator) {
 
         word = word.trim().toLowerCase();
         if (word === "") {
             return -1;
         }
-	
-		let appendedForeignWords = array.map(el => el + charSeparator);
+
+        let appendedForeignWords = array.map(el => el + charSeparator);
 
         for (let arrayWord of appendedForeignWords) {
             if (word.startsWith(arrayWord)) {
@@ -892,6 +888,5 @@ if (window.contentScriptInjected !== true) {
 
         return -1;
     }
-
 
 }
