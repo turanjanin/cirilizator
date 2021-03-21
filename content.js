@@ -635,8 +635,8 @@ if (window.contentScriptInjected !== true) {
     // Parse DOM on change
     const observer = new MutationObserver(mutations => {
         for (let mutation of mutations) {
-            for (let node of mutation.addedNodes) {
-                processText(node, !document.hidden && isEnabled ? 'cache-replace' : 'cache');
+            if (mutation.addedNodes.length > 0) {
+                processText(mutation.target, !document.hidden && isEnabled ? 'cache-replace' : 'cache');
             }
         }
     });
@@ -662,10 +662,6 @@ if (window.contentScriptInjected !== true) {
 
     // Recursively process text within descendent text nodes.
     function processText(parentNode, mode) {
-        if (parentNode.nodeType === 3) {
-            processTextNode(parentNode, mode);
-        }
-
         if (/SCRIPT|STYLE/.test(parentNode.nodeName)) {
             return;
         }
