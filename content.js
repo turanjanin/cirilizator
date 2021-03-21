@@ -143,8 +143,6 @@ if (window.contentScriptInjected !== true) {
         "transseks",
         "transsibir",
         "tridesettrog",
-        "urla",
-        "urli"
     ];
 
     var commonForeignWords = [
@@ -187,8 +185,9 @@ if (window.contentScriptInjected !== true) {
         "gmt",
         "good",
         "google",
-        "home",
         "hdmi",
+        "home",
+        "image",
         "iphon",
         "ipod",
         "javascript",
@@ -198,7 +197,6 @@ if (window.contentScriptInjected !== true) {
         "league",
         "like",
         "linkedin",
-        "login",
         "look",
         "macbook",
         "mail",
@@ -219,7 +217,6 @@ if (window.contentScriptInjected !== true) {
         "postpaid",
         "printscreen",
         "procredit",
-        "public",
         "renault",
         "screenshot",
         "seen",
@@ -238,15 +235,20 @@ if (window.contentScriptInjected !== true) {
         "trailer",
         "ufc",
         "unicredit",
-        "url",
         "username",
         "viber",
-        "viii",
-        "visa",
     ];
 
     var wholeForeignWords = [
         "dj",
+        "ii", 
+        "iii", 
+        "login",
+        "public",
+        "url",
+        "vii",
+        "viii",
+        "visa",
     ];
 
     var foreignCharacterCombinations = [
