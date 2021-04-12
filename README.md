@@ -1,6 +1,6 @@
 # Ћирилизатор - Ćirilizator - Cyrillizer
 
-Browser extension that transliterates Serbian web pages from latin to [cyrillic alphabet](https://en.wikipedia.org/wiki/Serbian_Cyrillic_alphabet).
+Browser extension that transliterates Serbian web pages from Latin to [Cyrillic alphabet](https://en.wikipedia.org/wiki/Serbian_Cyrillic_alphabet).
 
 Екстензија за веб прегледаче која пресловљава српске странице са латинице на ћирилицу.
 
@@ -21,6 +21,8 @@ Browser extension that transliterates Serbian web pages from latin to [cyrillic 
 Поновни клик на исто дугме вратиће страницу у оригинално стање и искључиће даље аутоматско пресловљавање.
 
 Одмах након инсталације, пресловљавање ће аутоматски бити укључено за неке од најпосећенијих српских сајтова.
+
+У случају да сајт садржи и ћириличну и латиничну верзију, екстензија ће аутоматски преусмерити корисника на ћириличну верзију.
 
 
 ## Аутори
