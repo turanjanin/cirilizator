@@ -715,7 +715,7 @@ if (window.contentScriptInjected !== true) {
         }
 
         let text = node.originalText || node.nodeValue;
-        node.nodeValue = transliterate(text);
+        node.nodeValue = textToCyrillic(text);
     }
 
     function processAttribute(node, attribute, mode) {
@@ -740,10 +740,10 @@ if (window.contentScriptInjected !== true) {
         }
 
         let text = node.originalAttributes[attribute] || node.getAttribute(attribute);
-        node.setAttribute(attribute, transliterate(text));
+        node.setAttribute(attribute, textToCyrillic(text));
     }
 
-    function transliterate(text) {
+    function textToCyrillic(text) {
         if (text.trim().length === 0) {
             return text;
         }
@@ -751,13 +751,11 @@ if (window.contentScriptInjected !== true) {
         let words = text.split(' ');
 
         for (let i = 0, length = words.length; i < length; i++) {
-
             let index = transliterationIndexOfWordStartsWith(words[i], wholeForeignWords, "-");
-            if(index >= 0) {
-                words[i] = words[i].substring(0, index) + convertToCyrillic(words[i].substring(index));
-            }
-            else if (!looksLikeForeignWord(words[i])) {
-                words[i] = convertToCyrillic(words[i]);
+            if (index >= 0) {
+                words[i] = words[i].substring(0, index) + wordToCyrillic(words[i].substring(index));
+            } else if (!looksLikeForeignWord(words[i])) {
+                words[i] = wordToCyrillic(words[i]);
             }
         }
 
@@ -774,7 +772,7 @@ if (window.contentScriptInjected !== true) {
             return false;
         }
 
-        if (wordInArray(word, foreignCharacterCombinations)) {
+        if (wordContainsString(word, foreignCharacterCombinations)) {
             return true;
         }
 
@@ -782,26 +780,26 @@ if (window.contentScriptInjected !== true) {
             return true;
         }
 
-        if (wordMatches(word, wholeForeignWords)) {
+        if (wordIsEqualTo(word, wholeForeignWords)) {
             return true;
         }
 
         return false;
     }
 
-    function convertToCyrillic(str) {
-        str = splitDigraphs(str);
+    function wordToCyrillic(word) {
+        word = splitDigraphs(word);
 
         let result = '';
 
-        for (let i = 0, length = str.length; i < length; i++) {
-            if (!trie[str[i]]) {
-                result += str[i];
+        for (let i = 0, length = word.length; i < length; i++) {
+            if (!trie[word[i]]) {
+                result += word[i];
                 continue;
             }
 
             // Search trie
-            let currentNode = trie[str[i]];
+            let currentNode = trie[word[i]];
             let currentDepth = 0;
             let valueDepth = 0;
             let value = '';
@@ -812,16 +810,16 @@ if (window.contentScriptInjected !== true) {
                     valueDepth = currentDepth;
                 }
 
-                if (currentNode[str[i + currentDepth + 1]]) {
+                if (currentNode[word[i + currentDepth + 1]]) {
                     currentDepth++;
-                    currentNode = currentNode[str[i + currentDepth]];
+                    currentNode = currentNode[word[i + currentDepth]];
                 } else {
                     break;
                 }
             }
 
             // Insert original text if match is incomplete
-            result += value || str.substr(i, valueDepth + 1);
+            result += value || word.substr(i, valueDepth + 1);
             i += valueDepth;
         }
 
@@ -863,7 +861,7 @@ if (window.contentScriptInjected !== true) {
         return false;
     }
 
-    function wordInArray(word, array) {
+    function wordContainsString(word, array) {
         for (let arrayWord of array) {
             if (word.includes(arrayWord)) {
                 return true;
@@ -873,7 +871,7 @@ if (window.contentScriptInjected !== true) {
         return false;
     }
 
-    function wordMatches(word, array) {
+    function wordIsEqualTo(word, array) {
         for (let arrayWord of array) {
             if (word === arrayWord) {
                 return true;
@@ -890,7 +888,6 @@ if (window.contentScriptInjected !== true) {
      * Example: dj-evi should be transliterated as dj-еви so the function retrieves 3.
      */
     function transliterationIndexOfWordStartsWith(word, array, charSeparator) {
-
         word = word.trim().toLowerCase();
         if (word === "") {
             return -1;
