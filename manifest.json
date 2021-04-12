@@ -3,7 +3,7 @@
     "name": "Ћирилизатор",
     "description": "Претвара латиничне стране у ћириличне.",
     "author": "Јован Турањанин",
-    "version": "1.0",
+    "version": "2.0",
     "background": {
         "scripts": [
             "background.js"
