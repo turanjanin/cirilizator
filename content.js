@@ -161,6 +161,7 @@ if (window.contentScriptInjected !== true) {
         "autocad",
         "book",
         "boot",
+        "cancel",
         "canon",
         "carlsberg",
         "cisco",
