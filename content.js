@@ -130,6 +130,8 @@ if (window.contentScriptInjected !== true) {
         "llsls",
         "mmf",
         "naddu",
+        "natha",
+        "natho",
         "ommetar",
         "penthaus",
         "poddirektor",
