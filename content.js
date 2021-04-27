@@ -161,6 +161,7 @@ if (window.contentScriptInjected !== true) {
         "advanced",
         "advertising",
         "autocad",
+        "bitcoin",
         "book",
         "boot",
         "cancel",
