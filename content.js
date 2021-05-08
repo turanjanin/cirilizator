@@ -909,7 +909,7 @@ if (window.contentScriptInjected !== true) {
      * Trims white spaces and punctuation marks from the start and the end of the word.
      */
     function trimExcessiveCharacters(word) {
-        const excessiveChars = "[\-\\s!?,:;.\*—~`'\"“(){}\\[\\]<>\\/]";
+        const excessiveChars = "[\\s!?,:;.\*\\-—~`'\"„”“”‘’(){}\\[\\]<>«»\\/\\\\]";
         const regExp = new RegExp("^(" + excessiveChars + ")+|(" + excessiveChars + ")+$", "g");
 
         return word.replace(regExp, '');
