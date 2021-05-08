@@ -252,9 +252,10 @@ if (window.contentScriptInjected !== true) {
         "cpu",
         "dj",
         "electronics",
+        "fun",
         "gmbh",
-        "ii", 
-        "iii", 
+        "ii",
+        "iii",
         "khz",
         "live",
         "login",
@@ -767,7 +768,7 @@ if (window.contentScriptInjected !== true) {
     }
 
     function looksLikeForeignWord(word) {
-        word = word.trim().toLowerCase();
+        word = trimExcessiveCharacters(word).toLowerCase();
         if (word === "") {
             return false;
         }
@@ -892,7 +893,7 @@ if (window.contentScriptInjected !== true) {
      * Example: dj-evi should be transliterated as dj-еви so the function retrieves 3.
      */
     function transliterationIndexOfWordStartsWith(word, array, charSeparator) {
-        word = word.trim().toLowerCase();
+        word = trimExcessiveCharacters(word).toLowerCase();
         if (word === "") {
             return -1;
         }
@@ -906,6 +907,16 @@ if (window.contentScriptInjected !== true) {
         }
 
         return -1;
+    }
+
+    /*
+     * Trims white spaces and punctuation marks from the start and the end of the word.
+     */
+    function trimExcessiveCharacters(word) {
+        const excessiveChars = "[\\s!?,:;.\*\\-—~`'\"„”“”‘’(){}\\[\\]<>«»\\/\\\\]";
+        const regExp = new RegExp("^(" + excessiveChars + ")+|(" + excessiveChars + ")+$", "g");
+
+        return word.replace(regExp, '');
     }
 
 }
