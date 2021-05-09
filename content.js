@@ -305,7 +305,10 @@ if (window.contentScriptInjected !== true) {
         '.net',
         '.info',
         '.rs',
-        '.org'
+        '.org',
+        '©',
+        '®',
+        '\u2122'
     ];
 
     var digraphExceptions = {
