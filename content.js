@@ -249,8 +249,8 @@ if (window.contentScriptInjected !== true) {
         "dj",
         "electronics",
         "gmbh",
-        "ii", 
-        "iii", 
+        "ii",
+        "iii",
         "khz",
         "live",
         "login",
@@ -686,6 +686,7 @@ if (window.contentScriptInjected !== true) {
                 case 1:    // Element node
                     processAttribute(node, 'title', mode);
                     processAttribute(node, 'placeholder', mode);
+                    processAttribute(node, 'value', mode);
 
                 case 11:   // Document fragment node
                     if (!/SCRIPT|STYLE/.test(node.nodeName)) {
