@@ -222,6 +222,7 @@ chrome.runtime.onInstalled.addListener(function () {
             'www.novaenergija.net',
             'www.novimagazin.rs',
             'www.novine.ca',
+            'www.novosti.rs',
             'www.nuns.rs',
             'www.okradio.rs',
             'www.personalmag.rs',
