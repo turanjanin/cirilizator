@@ -308,7 +308,7 @@ if (window.contentScriptInjected !== true) {
         '.org',
         '©',
         '®',
-        '\u2122'
+        '™'
     ];
 
     var digraphExceptions = {
