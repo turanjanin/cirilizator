@@ -686,7 +686,14 @@ if (window.contentScriptInjected !== true) {
                 case 1:    // Element node
                     processAttribute(node, 'title', mode);
                     processAttribute(node, 'placeholder', mode);
-                    processAttribute(node, 'value', mode);
+
+                    if(node.nodeName == "INPUT"
+                        && node.attributes.getNamedItem("NAME") == null
+                        && node.attributes.getNamedItem("TYPE") != null
+                        && ["submit", "button"].some(elem => elem === node.attributes.getNamedItem("TYPE").value)) {
+
+                            processAttribute(node, 'value', mode);
+                    }
 
                 case 11:   // Document fragment node
                     if (!/SCRIPT|STYLE/.test(node.nodeName)) {
