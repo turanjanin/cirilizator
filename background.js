@@ -43,6 +43,11 @@ var redirects = [
                                                                          , { match: '^(https?)://www.uns.org.rs/sr/(.*)$',                            redirect: '$1://www.uns.org.rs/$2'                      } ] }
     , { enabled: false, filter: '*://www.vs.rs/*',                rules: [ { match: '^(https?)://www.vs.rs/sr_lat(.*)$',                              redirect: '$1://www.vs.rs/sr_cyr$2'                     } ] }
     , { enabled: false, filter: '*://www.yugoimport.com/*',       rules: [ { match: '^(https?)://www.yugoimport.com/lat(.*)$',                        redirect: '$1://www.yugoimport.com/cir$2'               } ] }
+    , { enabled: false, filter: '*://dveri.rs/*',                 rules: [ { match: '^(https?)://dveri.rs/(.*)?#lat$',                                redirect: '$1://dveri.rs/$2#cyr'                        } ] }
+    , { enabled: false, filter: '*://www.ff.uns.ac.rs/*',         rules: [ { match: '^(https?)://www.ff.uns.ac.rs/sr-lat/(.*)$',                      redirect: '$1://www.ff.uns.ac.rs/sr/$2'                 } ] }
+    , { enabled: false, filter: '*://www.ossrb.org/*',            rules: [ { match: '^(https?)://www.ossrb.org/(.*)?#lat$',                           redirect: '$1://www.ossrb.org/$2#cyr'                   } ] }
+    , { enabled: false, filter: '*://www.etf.bg.ac.rs/*',         rules: [ { match: '^(https?)://www.etf.bg.ac.rs/sr-lat/(.*)$',                      redirect: '$1://www.etf.bg.ac.rs/sr/$2'                 } ] }
+    , { enabled: false, filter: '*://www.tf.uns.ac.rs/*',         rules: [ { match: '^(https?)://www.tf.uns.ac.rs/(.*)?#lat$',                        redirect: '$1://www.tf.uns.ac.rs/$2#cyr'                } ] }
 ];
 
 function matchRule(url, rule) {
