@@ -116,6 +116,7 @@ if (window.contentScriptInjected !== true) {
     }
 
     var serbianWordsWithForeignCharacterCombinations = [
+        "amss",
         "aparthejd",
         "ddor",
         "dss",
@@ -153,6 +154,7 @@ if (window.contentScriptInjected !== true) {
         "transseks",
         "transsibir",
         "tridesettrog",
+        "uppr",
     ];
 
     var commonForeignWords = [
@@ -200,7 +202,6 @@ if (window.contentScriptInjected !== true) {
         "javascript",
         "jazeera",
         "joomla",
-        "khz",
         "league",
         "like",
         "linkedin",
@@ -264,6 +265,8 @@ if (window.contentScriptInjected !== true) {
         "hz",
         "ii",
         "iii",
+        "idj",
+        "idjtv",
         "khz",
         "life",
         "live",
@@ -462,10 +465,10 @@ if (window.contentScriptInjected !== true) {
             "pogdje",
             "podjakn",
             "podjamč",
+            "podjastu",
             "podjemč",
             "podjar",
             "podjeb",
-            "podjebrad",
             "podjed",
             "podjezič",
             "podjel",
@@ -504,6 +507,7 @@ if (window.contentScriptInjected !== true) {
             "prosjedje",
             "protivdjel",
             "prošlonedje",
+            "radjard",
             "razvidje",
             "razdjev",
             "razdjel",
