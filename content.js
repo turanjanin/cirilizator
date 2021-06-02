@@ -675,8 +675,8 @@ if (window.contentScriptInjected !== true) {
     // Parse DOM on change
     const observer = new MutationObserver(mutations => {
         for (let mutation of mutations) {
-            if (mutation.addedNodes.length > 0) {
-                processText(mutation.target, !document.hidden && isEnabled ? 'cache-replace' : 'cache');
+            for (let node of mutation.addedNodes) {
+                processText(node, !document.hidden && isEnabled ? 'cache-replace' : 'cache');
             }
         }
     });
@@ -701,40 +701,48 @@ if (window.contentScriptInjected !== true) {
     });
 
     // Recursively process text within descendent text nodes.
-    function processText(parentNode, mode) {
-        if (/SCRIPT|STYLE/.test(parentNode.nodeName)) {
+    function processText(node, mode) {
+        if (/SCRIPT|STYLE/.test(node.nodeName)) {
             return;
         }
 
-        for (let node of parentNode.childNodes) {
-            switch (node.nodeType) {
+        if (node.nodeType === 3) {
+            if (node.parentElement && !/SCRIPT|STYLE/.test(node.parentElement.nodeName)) {
+                processTextNode(node, mode);
+            }
+
+            return;
+        }
+
+        for (let childNode of node.childNodes) {
+            switch (childNode.nodeType) {
                 case 1:    // Element node
-                    processAttribute(node, 'title', mode);
-                    processAttribute(node, 'placeholder', mode);
+                    processAttribute(childNode, 'title', mode);
+                    processAttribute(childNode, 'placeholder', mode);
 
-                    if(node.nodeName == "INPUT"
-                        && node.attributes.getNamedItem("NAME") == null
-                        && node.attributes.getNamedItem("TYPE") != null
-                        && ["submit", "button"].some(elem => elem === node.attributes.getNamedItem("TYPE").value)) {
+                    if (childNode.nodeName == "INPUT"
+                        && childNode.attributes.getNamedItem("NAME") == null
+                        && childNode.attributes.getNamedItem("TYPE") != null
+                        && ["submit", "button"].some(elem => elem === childNode.attributes.getNamedItem("TYPE").value)) {
 
-                            processAttribute(node, 'value', mode);
+                            processAttribute(childNode, 'value', mode);
                     }
 
                 case 11:   // Document fragment node
-                    if (!/SCRIPT|STYLE/.test(node.nodeName)) {
-                        processText(node, mode);
-                    }
-
+                    processText(childNode, mode);
                     break;
+
                 case 3:    // Text node
-                    processTextNode(node, mode);
+                    processTextNode(childNode, mode);
             }
         }
     }
 
     function processTextNode(node, mode) {
         if (mode === "cache") {
-            node.originalText = node.nodeValue;
+            if (!node.originalText) {
+                node.originalText = node.nodeValue;
+            }
             return;
         }
 
@@ -744,7 +752,9 @@ if (window.contentScriptInjected !== true) {
         }
 
         if (mode === "cache-replace") {
-            node.originalText = node.nodeValue;
+            if (!node.originalText) {
+                node.originalText = node.nodeValue;
+            }
         }
 
         let text = node.originalText || node.nodeValue;
