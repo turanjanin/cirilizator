@@ -791,7 +791,7 @@ if (window.contentScriptInjected !== true) {
             return text;
         }
 
-        let words = text.split(' ');
+        let words = text.split(/(\s+)/);
 
         for (let i = 0, length = words.length; i < length; i++) {
             let index = transliterationIndexOfWordStartsWith(words[i], wholeForeignWords, "-");
