@@ -213,7 +213,6 @@ if (window.contentScriptInjected !== true) {
         "maps",
         "mastercard",
         "mercator",
-        "mhz",
         "microsoft",
         "mitsubishi",
         "notebook",
@@ -272,12 +271,10 @@ if (window.contentScriptInjected !== true) {
         "hair",
         "have",
         "home",
-        "hz",
         "ii",
         "iii",
         "idj",
         "idjtv",
-        "khz",
         "life",
         "live",
         "login",
@@ -335,7 +332,7 @@ if (window.contentScriptInjected !== true) {
         '.org',
         '©',
         '®',
-        '™'
+        '™',
     ];
 
     var digraphExceptions = {
@@ -838,8 +835,13 @@ if (window.contentScriptInjected !== true) {
             return true;
         }
 
+        if (wordContainsMeasurementUnit(word)) {
+            return true;
+        }
+
         return false;
     }
+
 
     function wordToCyrillic(word) {
         word = splitDigraphs(word);
@@ -930,6 +932,20 @@ if (window.contentScriptInjected !== true) {
             if (word === arrayWord) {
                 return true;
             }
+        }
+
+        return false;
+    }
+
+    function wordContainsMeasurementUnit(word) {
+        const unitAdjacentToSth = "([zafpnμmcdhKMGTPEY]?([BVWJFSHCΩATNhlmg]|m[²³]|s[²]|cd|Pa|Wb|Hz))";
+        const unitOptionalyAdjacentToSth = "(°[FC]|[kMGTPEY](B|Hz)|[pnμmcdhk]m[²³]?|m[²³]|[mcdkh][lg])";
+        const number = "(\\d+([\.,]\\d)*)";
+        const regExp = new RegExp("^("+ number + unitAdjacentToSth + ")|("
+            + number + "?(" + unitOptionalyAdjacentToSth + "|" + unitAdjacentToSth + "/" + unitAdjacentToSth + "))$", "gi");
+
+        if (word.match(regExp)) {
+            return true;
         }
 
         return false;
