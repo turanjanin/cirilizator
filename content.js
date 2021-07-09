@@ -116,6 +116,7 @@ if (window.contentScriptInjected !== true) {
     }
 
     var serbianWordsWithForeignCharacterCombinations = [
+        "ammar",
         "amss",
         "aparthejd",
         "ddor",
@@ -144,6 +145,7 @@ if (window.contentScriptInjected !== true) {
         "posttraum",
         "pothodni",
         "pothranj",
+        "preddijabetes",
         "prethod",
         "ptt",
         "sbb",
@@ -157,6 +159,7 @@ if (window.contentScriptInjected !== true) {
         "transsibir",
         "tridesettrog",
         "uppr",
+        "vannastav",
     ];
 
     var commonForeignWords = [
