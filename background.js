@@ -18,6 +18,8 @@ var redirects = [
                                                                          , { match: '^(https?)://srna.rs/(.*)(?<!1).aspx(.*)$',                       redirect: '$1://srna.rs/$21.aspx$3'                     } ] }
     , { enabled: false, filter: '*://tanjug.rs/*',                rules: [ { match: '^(https?)://tanjug.rs/$',                                        redirect: '$1://tanjug.rs/index1.aspx'                  }
                                                                          , { match: '^(https?)://tanjug.rs/(.*)(?<!1).aspx(.*)$',                     redirect: '$1://tanjug.rs/$21.aspx$3'                   } ] }
+    , { enabled: false, filter: '*://www.6yka.com/*',             rules: [ { match: '^(https?)://www.6yka.com(/?)$',                                  redirect: '$1://www.6yka.com/cyr'                       }
+                                                                         , { match: '^(https?)://www.6yka.com/(?!cyr(/?))(.*)$',                      redirect: '$1://www.6yka.com/cyr/$3'                    } ] }
     , { enabled: false, filter: '*://www.arhiv-beograda.org/*',   rules: [ { match: '^(https?)://www.arhiv-beograda.org/sr/(.*)$',                    redirect: '$1://www.arhiv-beograda.org/rs/$2'           } ] }
     , { enabled: false, filter: '*://www.beograd.rs/*',           rules: [ { match: '^(https?)://www.beograd.rs/lat(.*)$',                            redirect: '$1://www.beograd.rs/cir$2'                   } ] }
     , { enabled: false, filter: '*://www.bbc.com/serbian/*',      rules: [ { match: '^(https?)://www.bbc.com/serbian/lat(/?)(.*)$',                   redirect: '$1://www.bbc.com/serbian/cyr$2$3'            } ] }
@@ -39,6 +41,7 @@ var redirects = [
     , { enabled: false, filter: '*://www.rtv.rs/*',               rules: [ { match: '^(https?)://www.rtv.rs/sr_lat/(.*)$',                            redirect: '$1://www.rtv.rs/sr_ci/$2'                    } ] }
     , { enabled: false, filter: '*://www.rtvbn.com/*',            rules: [ { match: '^(https?)://www.rtvbn.com/(?!cirilica(/?))(.*)$',                redirect: '$1://www.rtvbn.com/cirilica/$3'              } ] }
     , { enabled: false, filter: '*://www.standard.rs/*',          rules: [ { match: '^(https?)://www.standard.rs/(.*)?alphabet=latin(.*)$',           redirect: '$1://www.standard.rs/$2?alphabet=cyrillic$3' } ] }
+    , { enabled: false, filter: '*://standard.rs/*',              rules: [ { match: '^(https?)://standard.rs/(.*)?alphabet=latin(.*)$',               redirect: '$1://standard.rs/$2?alphabet=cyrillic$3'     } ] }
     , { enabled: false, filter: '*://www.uns.org.rs/*',           rules: [ { match: '^(https?)://www.uns.org.rs/sr.html$',                            redirect: '$1://www.uns.org.rs/'                        }
                                                                          , { match: '^(https?)://www.uns.org.rs/sr/(.*)$',                            redirect: '$1://www.uns.org.rs/$2'                      } ] }
     , { enabled: false, filter: '*://www.vs.rs/*',                rules: [ { match: '^(https?)://www.vs.rs/sr_lat(.*)$',                              redirect: '$1://www.vs.rs/sr_cyr$2'                     } ] }
@@ -121,7 +124,9 @@ chrome.runtime.onInstalled.addListener(function () {
         }
 
         const initialEnabledDomains = [
+            '24sedam.rs',
             'autoblog.rs',
+            'autorepublika.com',
             'balkanrock.com',
             'balkans.aljazeera.net',
             'bankar.rs',
@@ -132,6 +137,7 @@ chrome.runtime.onInstalled.addListener(function () {
             'bujanovacke.co.rs',
             'buro247.rs',
             'daljine.rs',
+            'ddl.rs',
             'direktno.rs',
             'dmotion.rs',
             'etrebinje.com',
@@ -156,6 +162,7 @@ chrome.runtime.onInstalled.addListener(function () {
             'noizz.rs',
             'nova.rs',
             'novimagazin.rs',
+            'nultatacka.rs/',
             'objektiv.rs',
             'pcpress.rs',
             'pescanik.net',
@@ -181,9 +188,11 @@ chrome.runtime.onInstalled.addListener(function () {
             'topzdravlje.rs',
             'ucentar.rs',
             'vijestisrpske.com',
+            'vojvodinainfo.rs',
             'vrbasmedia.com',
             'vrelegume.rs',
             'wannabemagazine.com',
+            'webtribune.rs',
             'www.011info.com',
             'www.021.rs',
             'www.alo.rs',
@@ -193,8 +202,11 @@ chrome.runtime.onInstalled.addListener(function () {
             'www.arte.rs',
             'www.automagazin.rs',
             'www.b92.net',
+            'www.bastabalkana.com',
             'www.benchmark.rs',
+            'www.beograduzivo.rs',
             'www.bizlife.rs',
+            'www.bl-portal.com',
             'www.blic.rs',
             'www.cenzolovka.rs',
             'www.danas.rs',
@@ -266,6 +278,7 @@ chrome.runtime.onInstalled.addListener(function () {
             'www.xxzmagazin.com',
             'www.zrenjaninski.com',
             'www.zurnal.rs',
+            'zdravljeizivot.rs',
             'zena.blic.rs',
             'zoomue.rs'
         ];
