@@ -802,7 +802,7 @@ if (window.contentScriptInjected !== true) {
             }
         }
 
-        return words.join(' ');
+        return words.join('');
     }
 
     function looksLikeForeignWord(word) {
