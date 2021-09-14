@@ -257,6 +257,7 @@ if (window.contentScriptInjected !== true) {
         "air",
         "alpha",
         "and",
+        "back",
         "bitcoin",
         "celebrities",
         "conditions",

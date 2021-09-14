@@ -162,7 +162,7 @@ chrome.runtime.onInstalled.addListener(function () {
             'noizz.rs',
             'nova.rs',
             'novimagazin.rs',
-            'nultatacka.rs/',
+            'nultatacka.rs',
             'objektiv.rs',
             'pcpress.rs',
             'pescanik.net',
