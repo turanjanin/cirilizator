@@ -839,7 +839,7 @@ if (window.contentScriptInjected !== true) {
             return true;
         }
 
-        if (wordContainsMeasurementUnit(word)) {
+        if (wordContainsMeasurementUnit(trimExcessiveCharacters(word))) {
             return true;
         }
 
@@ -946,7 +946,7 @@ if (window.contentScriptInjected !== true) {
         const unitOptionalyAdjacentToSth = "(°[FC]|[kMGTPEY](B|Hz)|[pnμmcdhk]m[²³]?|m[²³]|[mcdkh][lg])";
         const number = "(\\d+([\.,]\\d)*)";
         const regExp = new RegExp("^("+ number + unitAdjacentToSth + ")|("
-            + number + "?(" + unitOptionalyAdjacentToSth + "|" + unitAdjacentToSth + "/" + unitAdjacentToSth + "))$", "gi");
+            + number + "?(" + unitOptionalyAdjacentToSth + "|" + unitAdjacentToSth + "/" + unitAdjacentToSth + "))$");
 
         if (word.match(regExp)) {
             return true;
