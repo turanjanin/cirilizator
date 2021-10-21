@@ -818,7 +818,8 @@ if (window.contentScriptInjected !== true) {
     }
 
     function looksLikeForeignWord(word) {
-        word = trimExcessiveCharacters(word).toLowerCase();
+        trimmedWord = trimExcessiveCharacters(word);
+        word = trimmedWord.toLowerCase();
         if (word === "") {
             return false;
         }
@@ -839,7 +840,7 @@ if (window.contentScriptInjected !== true) {
             return true;
         }
 
-        if (wordContainsMeasurementUnit(trimExcessiveCharacters(word))) {
+        if (wordContainsMeasurementUnit(trimmedWord)) {
             return true;
         }
 
@@ -943,7 +944,7 @@ if (window.contentScriptInjected !== true) {
 
     function wordContainsMeasurementUnit(word) {
         const unitAdjacentToSth = "([zafpnμmcdhKMGTPEY]?([BVWJFSHCΩATNhlmg]|m[²³]|s[²]|cd|Pa|Wb|Hz))";
-        const unitOptionalyAdjacentToSth = "(°[FC]|[kMGTPEY](B|Hz)|[pnμmcdhk]m[²³]?|m[²³]|[mcdkh][lg])";
+        const unitOptionalyAdjacentToSth = "(°[FC]|[kMGTPZY](B|Hz)|[pnμmcdhk]m[²³]?|m[²³]|[mcdkh][lg])";
         const number = "(\\d+([\.,]\\d)*)";
         const regExp = new RegExp("^("+ number + unitAdjacentToSth + ")|("
             + number + "?(" + unitOptionalyAdjacentToSth + "|" + unitAdjacentToSth + "/" + unitAdjacentToSth + "))$");
