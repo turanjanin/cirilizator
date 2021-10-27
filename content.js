@@ -818,7 +818,7 @@ if (window.contentScriptInjected !== true) {
     }
 
     function looksLikeForeignWord(word) {
-        trimmedWord = trimExcessiveCharacters(word);
+        let trimmedWord = trimExcessiveCharacters(word);
         word = trimmedWord.toLowerCase();
         if (word === "") {
             return false;
@@ -944,9 +944,9 @@ if (window.contentScriptInjected !== true) {
 
     function wordContainsMeasurementUnit(word) {
         const unitAdjacentToSth = "([zafpnμmcdhKMGTPEY]?([BVWJFSHCΩATNhlmg]|m[²³]|s[²]|cd|Pa|Wb|Hz))";
-        const unitOptionalyAdjacentToSth = "(°[FC]|[kMGTPZY](B|Hz)|[pnμmcdhk]m[²³]?|m[²³]|[mcdkh][lg])";
+        const unitOptionalyAdjacentToSth = "(°[FC]|[kMGTPZY](B|Hz)|[pnμmcdhk]m[²³]?|m[²³]|[mcdh][lg])"; // deleted kilo
         const number = "(\\d+([\.,]\\d)*)";
-        const regExp = new RegExp("^("+ number + unitAdjacentToSth + ")|("
+        const regExp = new RegExp("^(" + number + unitAdjacentToSth + ")|("
             + number + "?(" + unitOptionalyAdjacentToSth + "|" + unitAdjacentToSth + "/" + unitAdjacentToSth + "))$");
 
         if (word.match(regExp)) {
