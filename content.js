@@ -943,8 +943,8 @@ if (window.contentScriptInjected !== true) {
     }
 
     function wordContainsMeasurementUnit(word) {
-        const unitAdjacentToSth = "([zafpnμmcdhKMGTPEY]?([BVWJFSHCΩATNhlmg]|m[²³]|s[²]|cd|Pa|Wb|Hz))";
-        const unitOptionalyAdjacentToSth = "(°[FC]|[kMGTPZY](B|Hz)|[pnμmcdhk]m[²³]?|m[²³]|[mcdh][lg])"; // deleted kilo
+        const unitAdjacentToSth = "([zafpnμmcdhKMGTPEY]?([BVWJFSHCΩATNhlmg]|m[²³]?|s[²]?|cd|Pa|Wb|Hz))";
+        const unitOptionalyAdjacentToSth = "(°[FC]|[kMGTPZY](B|Hz)|[pnμmcdhk]m[²³]?|m[²³]|[mcdh][lg]|kg|km)";
         const number = "(\\d+([\.,]\\d)*)";
         const regExp = new RegExp("^(" + number + unitAdjacentToSth + ")|("
             + number + "?(" + unitOptionalyAdjacentToSth + "|" + unitAdjacentToSth + "/" + unitAdjacentToSth + "))$");
