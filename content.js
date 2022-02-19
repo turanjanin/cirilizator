@@ -10,8 +10,11 @@ if (window.contentScriptInjected !== true) {
         "D": "Д",
         "Đ": "Ђ",
         "Ð": "Ђ",
+        "ᴆ": "Ђ",
         "DJ": "Ђ",
+        "DЈ": "Ђ", // D + cyrillic J
         "Dj": "Ђ",
+        "Dј": "Ђ", // D + cyrillic j
         "E": "Е",
         "Ž": "Ж",
         "Ž": "Ж", // Z with caron
@@ -21,14 +24,18 @@ if (window.contentScriptInjected !== true) {
         "K": "К",
         "L": "Л",
         "LJ": "Љ",
+        "LЈ": "Љ", // L + cyrillic J
         "Ǉ": "Љ",
         "Lj": "Љ",
+        "Lј": "Љ", // L + cyrillic j
         "ǈ": "Љ",
         "M": "М",
         "N": "Н",
         "NJ": "Њ",
+        "NЈ": "Њ", // N + cyrillic J
         "Ǌ": "Њ",
         "Nj": "Њ",
+        "Nј": "Њ", // N + cyrillic j
         "ǋ": "Њ",
         "O": "О",
         "P": "П",
@@ -61,6 +68,7 @@ if (window.contentScriptInjected !== true) {
         "d": "д",
         "đ": "ђ",
         "dj": "ђ",
+        "dј": "ђ", // d + cyrillic j
         "e": "е",
         "ž": "ж",
         "ž": "ж", // z with caron
@@ -71,10 +79,12 @@ if (window.contentScriptInjected !== true) {
         "k": "к",
         "l": "л",
         "lj": "љ",
+        "lј": "љ", // l + cyrillic j
         "ǉ": "љ",
         "m": "м",
         "n": "н",
         "nj": "њ",
+        "nј": "њ", // n + cyrillic j
         "ǌ": "њ",
         "o": "о",
         "œ": "ое",
