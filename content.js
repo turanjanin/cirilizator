@@ -164,6 +164,7 @@ if (window.contentScriptInjected !== true) {
         "ssrnj",
         "sssr",
         "superračun",
+        "šopingholi",
         "tass",
         "transseks",
         "transsibir",
