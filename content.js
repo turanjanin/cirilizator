@@ -255,6 +255,7 @@ if (window.contentScriptInjected !== true) {
         "steam",
         "stream",
         "subscrib",
+        "timeout",
         "tool",
         "topic",
         "trailer",
