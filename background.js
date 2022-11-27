@@ -54,6 +54,7 @@ var redirects = [
     , { enabled: false, filter: '*://www.ossrb.org/*',            rules: [ { match: '^(https?)://www.ossrb.org/(.*)?#lat$',                           redirect: '$1://www.ossrb.org/$2#cyr'                   } ] }
     , { enabled: false, filter: '*://www.etf.bg.ac.rs/*',         rules: [ { match: '^(https?)://www.etf.bg.ac.rs/sr-lat/(.*)$',                      redirect: '$1://www.etf.bg.ac.rs/sr/$2'                 } ] }
     , { enabled: false, filter: '*://www.tf.uns.ac.rs/*',         rules: [ { match: '^(https?)://www.tf.uns.ac.rs/(.*)?#lat$',                        redirect: '$1://www.tf.uns.ac.rs/$2#cyr'                } ] }
+    , { enabled: false, filter: '*://www.gspns.co.rs/*',          rules: [ { match: '^(https?)://www.gspns.co.rs/(.*)?selected_lang=lat$',            redirect: '$1://www.nspm.rs/$2?selected_lang=cir'       } ] }
 ];
 
 function matchRule(url, rule) {
