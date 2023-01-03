@@ -12,6 +12,7 @@ var redirects = [
     , { enabled: false, filter: '*://nbs.rs/*',                   rules: [ { match: '^(https?)://nbs.rs/sr/(.*)$',                                    redirect: '$1://nbs.rs/sr_RS/$2'                        } ] }
     , { enabled: false, filter: '*://*.sputniknews.com/*',        rules: [ { match: '^(https?)://rs-lat.sputniknews.com/(.*?)$',                      redirect: '$1://rs.sputniknews.com/$2'                  } ] }
     , { enabled: false, filter: '*://*.sputnikportal.rs/*',       rules: [ { match: '^(https?)://lat.sputnikportal.rs/(.*?)$',                        redirect: '$1://sputnikportal.rs/$2'                    } ] }
+    , { enabled: false, filter: '*://*.rt.rs/*',                  rules: [ { match: '^(https?)://lat.rt.rs/(.*?)$',                                   redirect: '$1://rt.rs/$2'                               } ] }
     , { enabled: false, filter: '*://*.rtrs.tv/*',                rules: [ { match: '^(https?)://lat.rtrs.tv/(.*?)$',                                 redirect: '$1://www.rtrs.tv/$2'                         } ] }
     , { enabled: false, filter: '*://pravda.rs/*',                rules: [ { match: '^(https?)://pravda.rs/lat/(.*)$',                                redirect: '$1://pravda.rs/$2'                           } ] }
     , { enabled: false, filter: '*://sr.wikipedia.org/*',         rules: [ { match: '^(https?)://sr.wikipedia.org/(?:wiki|sr|sr-el)/(.*)$',           redirect: '$1://sr.wikipedia.org/sr-ec/$2'              } ] }
@@ -146,6 +147,7 @@ chrome.runtime.onInstalled.addListener(function () {
             'dmotion.rs',
             'etrebinje.com',
             'euromedic.rs',
+            'evrsac.rs',
             'fonet.rs',
             'glasbanjaluke.net',
             'happytv.rs',
