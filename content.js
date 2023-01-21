@@ -117,6 +117,9 @@ if (window.contentScriptInjected !== true) {
         "ba.n1info.com",
         "hr.n1info.com",
         "rs.n1info.com",
+        "n1info.ba",
+        "n1info.hr",
+        "n1info.rs",
         "sportklub.rs",
     ];
     if (fontAffectedSites.includes(window.location.hostname)) {
