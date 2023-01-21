@@ -10,8 +10,11 @@ if (window.contentScriptInjected !== true) {
         "D": "Д",
         "Đ": "Ђ",
         "Ð": "Ђ",
+        "ᴆ": "Ђ",
         "DJ": "Ђ",
+        "DЈ": "Ђ", // D + cyrillic J
         "Dj": "Ђ",
+        "Dј": "Ђ", // D + cyrillic j
         "E": "Е",
         "Ž": "Ж",
         "Ž": "Ж", // Z with caron
@@ -21,14 +24,18 @@ if (window.contentScriptInjected !== true) {
         "K": "К",
         "L": "Л",
         "LJ": "Љ",
+        "LЈ": "Љ", // L + cyrillic J
         "Ǉ": "Љ",
         "Lj": "Љ",
+        "Lј": "Љ", // L + cyrillic j
         "ǈ": "Љ",
         "M": "М",
         "N": "Н",
         "NJ": "Њ",
+        "NЈ": "Њ", // N + cyrillic J
         "Ǌ": "Њ",
         "Nj": "Њ",
+        "Nј": "Њ", // N + cyrillic j
         "ǋ": "Њ",
         "O": "О",
         "P": "П",
@@ -61,6 +68,7 @@ if (window.contentScriptInjected !== true) {
         "d": "д",
         "đ": "ђ",
         "dj": "ђ",
+        "dј": "ђ", // d + cyrillic j
         "e": "е",
         "ž": "ж",
         "ž": "ж", // z with caron
@@ -71,10 +79,12 @@ if (window.contentScriptInjected !== true) {
         "k": "к",
         "l": "л",
         "lj": "љ",
+        "lј": "љ", // l + cyrillic j
         "ǉ": "љ",
         "m": "м",
         "n": "н",
         "nj": "њ",
+        "nј": "њ", // n + cyrillic j
         "ǌ": "њ",
         "o": "о",
         "œ": "ое",
@@ -116,6 +126,8 @@ if (window.contentScriptInjected !== true) {
     }
 
     var serbianWordsWithForeignCharacterCombinations = [
+        "ammar",
+        "amss",
         "aparthejd",
         "ddor",
         "dss",
@@ -143,16 +155,22 @@ if (window.contentScriptInjected !== true) {
         "posttraum",
         "pothodni",
         "pothranj",
+        "preddijabetes",
         "prethod",
         "ptt",
         "sbb",
+        "sdss",
         "ssp",
         "ssrnj",
         "sssr",
         "superračun",
+        "šopingholi",
+        "tass",
         "transseks",
         "transsibir",
         "tridesettrog",
+        "uppr",
+        "vannastav",
     ];
 
     var commonForeignWords = [
@@ -177,7 +195,7 @@ if (window.contentScriptInjected !== true) {
         "covid",
         "dacia",
         "default",
-        "developer",
+        "develop",
         "e-mail",
         "edge",
         "email",
@@ -193,24 +211,22 @@ if (window.contentScriptInjected !== true) {
         "good",
         "google",
         "hdmi",
-        "home",
         "image",
         "iphon",
         "ipod",
         "javascript",
         "jazeera",
         "joomla",
-        "khz",
         "league",
         "like",
         "linkedin",
         "look",
         "macbook",
         "mail",
+        "manager",
         "maps",
         "mastercard",
         "mercator",
-        "mhz",
         "microsoft",
         "mitsubishi",
         "notebook",
@@ -224,7 +240,10 @@ if (window.contentScriptInjected !== true) {
         "postpaid",
         "printscreen",
         "procredit",
+        "project",
+        "punk",
         "renault",
+        "rock",
         "screenshot",
         "seen",
         "selfie",
@@ -236,6 +255,7 @@ if (window.contentScriptInjected !== true) {
         "steam",
         "stream",
         "subscrib",
+        "timeout",
         "tool",
         "topic",
         "trailer",
@@ -248,18 +268,39 @@ if (window.contentScriptInjected !== true) {
     var wholeForeignWords = [
         "air",
         "alpha",
+        "and",
+        "back",
+        "bitcoin",
+        "celebrities",
         "conditions",
+        "co2",
         "cpu",
+        "creative",
+        "disclaimer",
         "dj",
         "electronics",
+        "fresh",
+        "fun",
+        "geographic",
         "gmbh",
-        "ii", 
-        "iii", 
-        "khz",
+        "h2o",
+        "hair",
+        "have",
+        "home",
+        "ii",
+        "iii",
+        "idj",
+        "idjtv",
+        "life",
         "live",
         "login",
+        "national",
+        "made",
+        "makeup",
+        "must",
         "previous",
         "public",
+        "reserved",
         "terms",
         "url",
         "vii",
@@ -304,7 +345,10 @@ if (window.contentScriptInjected !== true) {
         '.net',
         '.info',
         '.rs',
-        '.org'
+        '.org',
+        '©',
+        '®',
+        '™',
     ];
 
     var digraphExceptions = {
@@ -445,10 +489,10 @@ if (window.contentScriptInjected !== true) {
             "pogdje",
             "podjakn",
             "podjamč",
+            "podjastu",
             "podjemč",
             "podjar",
             "podjeb",
-            "podjebrad",
             "podjed",
             "podjezič",
             "podjel",
@@ -487,6 +531,7 @@ if (window.contentScriptInjected !== true) {
             "prosjedje",
             "protivdjel",
             "prošlonedje",
+            "radjard",
             "razvidje",
             "razdjev",
             "razdjel",
@@ -654,8 +699,8 @@ if (window.contentScriptInjected !== true) {
     // Parse DOM on change
     const observer = new MutationObserver(mutations => {
         for (let mutation of mutations) {
-            if (mutation.addedNodes.length > 0) {
-                processText(mutation.target, !document.hidden && isEnabled ? 'cache-replace' : 'cache');
+            for (let node of mutation.addedNodes) {
+                processText(node, !document.hidden && isEnabled ? 'cache-replace' : 'cache');
             }
         }
     });
@@ -680,32 +725,48 @@ if (window.contentScriptInjected !== true) {
     });
 
     // Recursively process text within descendent text nodes.
-    function processText(parentNode, mode) {
-        if (/SCRIPT|STYLE/.test(parentNode.nodeName)) {
+    function processText(node, mode) {
+        if (/SCRIPT|STYLE/.test(node.nodeName)) {
             return;
         }
 
-        for (let node of parentNode.childNodes) {
-            switch (node.nodeType) {
-                case 1:    // Element node
-                    processAttribute(node, 'title', mode);
-                    processAttribute(node, 'placeholder', mode);
+        if (node.nodeType === 3) {
+            if (node.parentElement && !/SCRIPT|STYLE/.test(node.parentElement.nodeName)) {
+                processTextNode(node, mode);
+            }
 
-                case 11:   // Document fragment node
-                    if (!/SCRIPT|STYLE/.test(node.nodeName)) {
-                        processText(node, mode);
+            return;
+        }
+
+        for (let childNode of node.childNodes) {
+            switch (childNode.nodeType) {
+                case 1:    // Element node
+                    processAttribute(childNode, 'title', mode);
+                    processAttribute(childNode, 'placeholder', mode);
+
+                    if (childNode.nodeName == "INPUT"
+                        && childNode.attributes.getNamedItem("NAME") == null
+                        && childNode.attributes.getNamedItem("TYPE") != null
+                        && ["submit", "button"].some(elem => elem === childNode.attributes.getNamedItem("TYPE").value)) {
+
+                            processAttribute(childNode, 'value', mode);
                     }
 
+                case 11:   // Document fragment node
+                    processText(childNode, mode);
                     break;
+
                 case 3:    // Text node
-                    processTextNode(node, mode);
+                    processTextNode(childNode, mode);
             }
         }
     }
 
     function processTextNode(node, mode) {
         if (mode === "cache") {
-            node.originalText = node.nodeValue;
+            if (!node.originalText) {
+                node.originalText = node.nodeValue;
+            }
             return;
         }
 
@@ -715,7 +776,9 @@ if (window.contentScriptInjected !== true) {
         }
 
         if (mode === "cache-replace") {
-            node.originalText = node.nodeValue;
+            if (!node.originalText) {
+                node.originalText = node.nodeValue;
+            }
         }
 
         let text = node.originalText || node.nodeValue;
@@ -752,7 +815,7 @@ if (window.contentScriptInjected !== true) {
             return text;
         }
 
-        let words = text.split(' ');
+        let words = text.split(/(\s+)/);
 
         for (let i = 0, length = words.length; i < length; i++) {
             let index = transliterationIndexOfWordStartsWith(words[i], wholeForeignWords, "-");
@@ -763,11 +826,12 @@ if (window.contentScriptInjected !== true) {
             }
         }
 
-        return words.join(' ');
+        return words.join('');
     }
 
     function looksLikeForeignWord(word) {
-        word = word.trim().toLowerCase();
+        let trimmedWord = trimExcessiveCharacters(word);
+        word = trimmedWord.toLowerCase();
         if (word === "") {
             return false;
         }
@@ -788,8 +852,13 @@ if (window.contentScriptInjected !== true) {
             return true;
         }
 
+        if (wordContainsMeasurementUnit(trimmedWord)) {
+            return true;
+        }
+
         return false;
     }
+
 
     function wordToCyrillic(word) {
         word = splitDigraphs(word);
@@ -885,6 +954,20 @@ if (window.contentScriptInjected !== true) {
         return false;
     }
 
+    function wordContainsMeasurementUnit(word) {
+        const unitAdjacentToSth = "([zafpnμmcdhKMGTPEY]?([BVWJFSHCΩATNhlmg]|m[²³]?|s[²]?|cd|Pa|Wb|Hz))";
+        const unitOptionalyAdjacentToSth = "(°[FC]|[kMGTPZY](B|Hz)|[pnμmcdhk]m[²³]?|m[²³]|[mcdh][lg]|kg|km)";
+        const number = "(\\d+([\.,]\\d)*)";
+        const regExp = new RegExp("^(" + number + unitAdjacentToSth + ")|("
+            + number + "?(" + unitOptionalyAdjacentToSth + "|" + unitAdjacentToSth + "/" + unitAdjacentToSth + "))$");
+
+        if (word.match(regExp)) {
+            return true;
+        }
+
+        return false;
+    }
+
     /*
      * Retrieves index of the first character of the word that should be transliterated.
      * Function examines only words that have a root that is a foreign word, followed by
@@ -892,7 +975,7 @@ if (window.contentScriptInjected !== true) {
      * Example: dj-evi should be transliterated as dj-еви so the function retrieves 3.
      */
     function transliterationIndexOfWordStartsWith(word, array, charSeparator) {
-        word = word.trim().toLowerCase();
+        word = trimExcessiveCharacters(word).toLowerCase();
         if (word === "") {
             return -1;
         }
@@ -906,6 +989,16 @@ if (window.contentScriptInjected !== true) {
         }
 
         return -1;
+    }
+
+    /*
+     * Trims white spaces and punctuation marks from the start and the end of the word.
+     */
+    function trimExcessiveCharacters(word) {
+        const excessiveChars = "[\\s!?,:;.\*\\-—~`'\"„”“”‘’(){}\\[\\]<>«»\\/\\\\]";
+        const regExp = new RegExp("^(" + excessiveChars + ")+|(" + excessiveChars + ")+$", "g");
+
+        return word.replace(regExp, '');
     }
 
 }
