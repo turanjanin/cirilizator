@@ -168,6 +168,7 @@ chrome.runtime.onInstalled.addListener(function () {
             'nationalgeographic.rs',
             'newsflash.rs',
             'niskevesti.rs',
+            'n1info.rs',
             'noizz.rs',
             'nova.rs',
             'novimagazin.rs',
