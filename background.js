@@ -55,7 +55,7 @@ var redirects = [
     , { enabled: false, filter: '*://www.ossrb.org/*',            rules: [ { match: '^(https?)://www.ossrb.org/(.*)?#lat$',                           redirect: '$1://www.ossrb.org/$2#cyr'                   } ] }
     , { enabled: false, filter: '*://www.etf.bg.ac.rs/*',         rules: [ { match: '^(https?)://www.etf.bg.ac.rs/sr-lat/(.*)$',                      redirect: '$1://www.etf.bg.ac.rs/sr/$2'                 } ] }
     , { enabled: false, filter: '*://www.tf.uns.ac.rs/*',         rules: [ { match: '^(https?)://www.tf.uns.ac.rs/(.*)?#lat$',                        redirect: '$1://www.tf.uns.ac.rs/$2#cyr'                } ] }
-    , { enabled: false, filter: '*://www.gspns.co.rs/*',          rules: [ { match: '^(https?)://www.gspns.co.rs/(.*)?selected_lang=lat$',            redirect: '$1://www.nspm.rs/$2?selected_lang=cir'       } ] }
+    , { enabled: false, filter: '*://www.gspns.co.rs/*',          rules: [ { match: '^(https?)://www.gspns.co.rs/(.*)?selected_lang=lat$',            redirect: '$1://www.gspns.co.rs/$2?selected_lang=cir'   } ] }
 ];
 
 function matchRule(url, rule) {
@@ -161,14 +161,15 @@ chrome.runtime.onInstalled.addListener(function () {
             'jugmedia.rs',
             'kaldrma.rs',
             'luftika.rs',
+            'maliproizvodjaci.rs'
             'mondo.rs',
             'moravainfo.rs',
+            'n1info.rs',
             'nadlanu.com',
             'naslovi.net',
             'nationalgeographic.rs',
             'newsflash.rs',
             'niskevesti.rs',
-            'n1info.rs',
             'noizz.rs',
             'nova.rs',
             'novimagazin.rs',
@@ -256,6 +257,7 @@ chrome.runtime.onInstalled.addListener(function () {
             'www.navidiku.rs',
             'www.ndnv.org',
             'www.nedeljnik.rs',
+            'www.netokracija.rs',
             'www.nezavisne.com',
             'www.novaenergija.net',
             'www.novimagazin.rs',
