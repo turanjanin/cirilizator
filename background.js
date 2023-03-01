@@ -161,7 +161,7 @@ chrome.runtime.onInstalled.addListener(function () {
             'jugmedia.rs',
             'kaldrma.rs',
             'luftika.rs',
-            'maliproizvodjaci.rs'
+            'maliproizvodjaci.rs',
             'mondo.rs',
             'moravainfo.rs',
             'n1info.rs',
