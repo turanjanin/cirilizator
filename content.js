@@ -358,6 +358,7 @@ if (window.contentScriptInjected !== true) {
         "dj": [
             "adjektiv",
             "adjunkt",
+            "autodjel",
             "bazdje",
             "bdje",
             "bezdje",
