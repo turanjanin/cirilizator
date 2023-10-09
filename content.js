@@ -129,6 +129,7 @@ if (window.contentScriptInjected !== true) {
     }
 
     var serbianWordsWithForeignCharacterCombinations = [
+        "alchajmer",
         "ammar",
         "amss",
         "aparthejd",
