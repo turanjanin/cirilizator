@@ -113,20 +113,13 @@ if (window.contentScriptInjected !== true) {
 
 
     // Temporary fix for United Media sites with faulty "Exo 2" font.
-    var fontAffectedSites = [
-        "ba.n1info.com",
-        "hr.n1info.com",
-        "rs.n1info.com",
-        "n1info.ba",
-        "n1info.hr",
-        "n1info.rs",
-        "sportklub.rs",
-    ];
-    if (fontAffectedSites.includes(window.location.hostname)) {
-        initialMap["đ"] = "ћ";
-        initialMap["ć"] = "ђ";
-        initialMap["ć"] = "ђ";
-    }
+    // var fontAffectedSites = [
+    // ];
+    // if (fontAffectedSites.includes(window.location.hostname)) {
+    //     initialMap["đ"] = "ћ";
+    //     initialMap["ć"] = "ђ";
+    //     initialMap["ć"] = "ђ";
+    // }
 
     var serbianWordsWithForeignCharacterCombinations = [
         "alchajmer",
