@@ -131,6 +131,7 @@ if (window.contentScriptInjected !== true) {
         "dvadesettrog",
         "epp",
         "fss",
+        "gg",
         "gss",
         "interreakc",
         "interresor",
