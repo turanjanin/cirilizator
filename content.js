@@ -908,7 +908,7 @@ if (window.contentScriptInjected !== true) {
     }
 
     function splitDigraphs(str) {
-        const lowercaseStr = str.trim().toLowerCase();
+        const lowercaseStr = trimExcessiveCharacters(str).toLowerCase();
 
         for (const digraph in digraphExceptions) {
             if (!lowercaseStr.includes(digraph)) {
