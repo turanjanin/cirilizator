@@ -1,89 +1,45 @@
-var currentTab;
 var enabledDomains = [];
 var enabledRedirects = [];
-var lastRedirectedUrl = '';
 
-var redirects = [
-      { enabled: false, filter: '*://elementarium.cpn.rs/*',      rules: [ { match: '^(https?)://elementarium.cpn.rs/(.*)?script=lat$',               redirect: '$1://elementarium.cpn.rs/$2?script=cir'      }
-                                                                         , { match: '^(https?)://elementarium.cpn.rs/((?!.*\?script=(?:cir|lat)).*)', redirect: '$1://elementarium.cpn.rs/$2?script=cir'      } ] }
-    , { enabled: false, filter: '*://jadovno.com/*',              rules: [ { match: '^(https?)://jadovno.com/(.*)?lng=lat$',                          redirect: '$1://jadovno.com/$2?lng=cir'                 }
-                                                                         , { match: '^(https?)://jadovno.com/((?!.*\?lng=(?:cir|lat)).*)',            redirect: '$1://jadovno.com/$2?lng=cir'                 } ] }
-    , { enabled: false, filter: '*://kim.gov.rs/*',               rules: [ { match: '^(https?)://kim.gov.rs/lat/(.*)$',                               redirect: '$1://kim.gov.rs/$2'                          } ] }
-    , { enabled: false, filter: '*://nbs.rs/*',                   rules: [ { match: '^(https?)://nbs.rs/sr/(.*)$',                                    redirect: '$1://nbs.rs/sr_RS/$2'                        } ] }
-    , { enabled: false, filter: '*://*.sputniknews.com/*',        rules: [ { match: '^(https?)://rs-lat.sputniknews.com/(.*?)$',                      redirect: '$1://rs.sputniknews.com/$2'                  } ] }
-    , { enabled: false, filter: '*://*.sputnikportal.rs/*',       rules: [ { match: '^(https?)://lat.sputnikportal.rs/(.*?)$',                        redirect: '$1://sputnikportal.rs/$2'                    } ] }
-    , { enabled: false, filter: '*://*.rt.rs/*',                  rules: [ { match: '^(https?)://lat.rt.rs/(.*?)$',                                   redirect: '$1://rt.rs/$2'                               } ] }
-    , { enabled: false, filter: '*://*.rtrs.tv/*',                rules: [ { match: '^(https?)://lat.rtrs.tv/(.*?)$',                                 redirect: '$1://www.rtrs.tv/$2'                         } ] }
-    , { enabled: false, filter: '*://pravda.rs/*',                rules: [ { match: '^(https?)://pravda.rs/lat/(.*)$',                                redirect: '$1://pravda.rs/$2'                           } ] }
-    , { enabled: false, filter: '*://sr.wikipedia.org/*',         rules: [ { match: '^(https?)://sr.wikipedia.org/(?:wiki|sr|sr-el)/(.*)$',           redirect: '$1://sr.wikipedia.org/sr-ec/$2'              } ] }
-    , { enabled: false, filter: '*://srna.rs/*',                  rules: [ { match: '^(https?)://srna.rs/$',                                          redirect: '$1://srna.rs/index1.aspx'                    }
-                                                                         , { match: '^(https?)://srna.rs/(.*)(?<!1).aspx(.*)$',                       redirect: '$1://srna.rs/$21.aspx$3'                     } ] }
-    , { enabled: false, filter: '*://tanjug.rs/*',                rules: [ { match: '^(https?)://tanjug.rs/$',                                        redirect: '$1://tanjug.rs/index1.aspx'                  }
-                                                                         , { match: '^(https?)://tanjug.rs/(.*)(?<!1).aspx(.*)$',                     redirect: '$1://tanjug.rs/$21.aspx$3'                   } ] }
-    , { enabled: false, filter: '*://www.6yka.com/*',             rules: [ { match: '^(https?)://www.6yka.com(/?)$',                                  redirect: '$1://www.6yka.com/cyr'                       }
-                                                                         , { match: '^(https?)://www.6yka.com/(?!cyr(/?))(.*)$',                      redirect: '$1://www.6yka.com/cyr/$3'                    } ] }
-    , { enabled: false, filter: '*://www.arhiv-beograda.org/*',   rules: [ { match: '^(https?)://www.arhiv-beograda.org/sr/(.*)$',                    redirect: '$1://www.arhiv-beograda.org/rs/$2'           } ] }
-    , { enabled: false, filter: '*://www.beograd.rs/*',           rules: [ { match: '^(https?)://www.beograd.rs/lat(.*)$',                            redirect: '$1://www.beograd.rs/cir$2'                   } ] }
-    , { enabled: false, filter: '*://www.bbc.com/serbian/*',      rules: [ { match: '^(https?)://www.bbc.com/serbian/lat(/?)(.*)$',                   redirect: '$1://www.bbc.com/serbian/cyr$2$3'            } ] }
-    , { enabled: false, filter: '*://www.glassrpske.com/*',       rules: [ { match: '^(https?)://www.glassrpske.com/lat(/?)(.*)$',                    redirect: '$1://www.glassrpske.com/cir$2$3'             } ] }
-    , { enabled: false, filter: '*://www.glaszapadnesrbije.rs/*', rules: [ { match: '^(https?)://www.glaszapadnesrbije.rs/(.*)#lat$',                 redirect: '$1://www.glaszapadnesrbije.rs/$2#cyr'        } ] }
-    , { enabled: false, filter: '*://www.intermagazin.rs/*',      rules: [ { match: '^(https?)://www.intermagazin.rs/(.*)?lang=lat$',                 redirect: '$1://www.intermagazin.rs/$2?lang=cir'        }
-                                                                         , { match: '^(https?)://www.intermagazin.rs/((?!.*\?lang=(?:cir|lat)).*)',   redirect: '$1://www.intermagazin.rs/$2?lang=cir'        } ] }
-    , { enabled: false, filter: '*://www.kragujevac.rs/*',        rules: [ { match: '^(https?)://www.kragujevac.rs/(.*)?script=lat$',                 redirect: '$1://www.kragujevac.rs/$2?script=cir'        }
-                                                                         , { match: '^(https?)://www.kragujevac.rs/((?!.*\?script=(?:cir|lat)).*)',   redirect: '$1://www.kragujevac.rs/$2?script=cir'        } ] }
-    , { enabled: false, filter: '*://www.mod.gov.rs/*',           rules: [ { match: '^(https?)://www.mod.gov.rs/lat(.*)$',                            redirect: '$1://www.mod.gov.rs/cir$2'                   } ] }
-    , { enabled: false, filter: '*://www.novosti.rs/*',           rules: [ { match: '^(https?)://www.novosti.rs/(?!c/)(.*?)$',                        redirect: '$1://www.novosti.rs/c/$2'                    } ] }
-    , { enabled: false, filter: '*://www.magazin.novosti.rs/*',   rules: [ { match: '^(https?)://www.magazin.novosti.rs/$',                           redirect: '$1://www.magazin.novosti.rs/scc/'            }
-                                                                         , { match: '^(https?)://www.magazin.novosti.rs/sr/(.*?)$',                   redirect: '$1://www.magazin.novosti.rs/scc/$2'          } ] }
-    , { enabled: false, filter: '*://www.nspm.rs/*',              rules: [ { match: '^(https?)://www.nspm.rs/(.*)?alphabet=l$',                       redirect: '$1://www.nspm.rs/$2?alphabet=c'              } ] }
-    , { enabled: false, filter: '*://www.politika.rs/*',          rules: [ { match: '^(https?)://www.politika.rs/sr(/?)(.*)$',                        redirect: '$1://www.politika.rs/scc$2$3'                } ] }
-    , { enabled: false, filter: '*://posta.rs/*',                 rules: [ { match: '^(https?)://(?:.*\.)?posta.rs/lat/(.*)$',                        redirect: '$1://posta.rs/cir/$2'                        }
-                                                                         , { match: '^(https?)://(?:.*\.)?posta.rs/index-privreda-lat.aspx$',         redirect: '$1://posta.rs/index-privreda-cir.aspx'       }
-                                                                         , { match: '^(https?)://(?:.*\.)?posta.rs/index-stanovnistvo-lat.aspx$',     redirect: '$1://posta.rs/index.aspx'                    } ] }
-    , { enabled: false, filter: '*://www.rts.rs/*',               rules: [ { match: '^(https?)://www.rts.rs/(.*)/sr.html$',                           redirect: '$1://www.rts.rs/$2/ci.html'                  }
-                                                                         , { match: '^(https?)://www.rts.rs/(.*)/sr/(.*)$',                           redirect: '$1://www.rts.rs/$2/ci/$3'                    } ] }
-    , { enabled: false, filter: '*://www.rtv.rs/*',               rules: [ { match: '^(https?)://www.rtv.rs/sr_lat/(.*)$',                            redirect: '$1://www.rtv.rs/sr_ci/$2'                    } ] }
-    , { enabled: false, filter: '*://www.rtvbn.com/*',            rules: [ { match: '^(https?)://www.rtvbn.com/(?!cirilica(/?))(.*)$',                redirect: '$1://www.rtvbn.com/cirilica/$3'              } ] }
-    , { enabled: false, filter: '*://www.standard.rs/*',          rules: [ { match: '^(https?)://www.standard.rs/(.*)?alphabet=latin(.*)$',           redirect: '$1://www.standard.rs/$2?alphabet=cyrillic$3' } ] }
-    , { enabled: false, filter: '*://standard.rs/*',              rules: [ { match: '^(https?)://standard.rs/(.*)?alphabet=latin(.*)$',               redirect: '$1://standard.rs/$2?alphabet=cyrillic$3'     } ] }
-    , { enabled: false, filter: '*://www.uns.org.rs/*',           rules: [ { match: '^(https?)://www.uns.org.rs/sr.html$',                            redirect: '$1://www.uns.org.rs/'                        }
-                                                                         , { match: '^(https?)://www.uns.org.rs/sr/(.*)$',                            redirect: '$1://www.uns.org.rs/$2'                      } ] }
-    , { enabled: false, filter: '*://www.vs.rs/*',                rules: [ { match: '^(https?)://www.vs.rs/sr_lat(.*)$',                              redirect: '$1://www.vs.rs/sr_cyr$2'                     } ] }
-    , { enabled: false, filter: '*://www.yugoimport.com/*',       rules: [ { match: '^(https?)://www.yugoimport.com/lat(.*)$',                        redirect: '$1://www.yugoimport.com/cir$2'               } ] }
-    , { enabled: false, filter: '*://dveri.rs/*',                 rules: [ { match: '^(https?)://dveri.rs/(.*)?#lat$',                                redirect: '$1://dveri.rs/$2#cyr'                        } ] }
-    , { enabled: false, filter: '*://www.ff.uns.ac.rs/*',         rules: [ { match: '^(https?)://www.ff.uns.ac.rs/sr-lat/(.*)$',                      redirect: '$1://www.ff.uns.ac.rs/sr/$2'                 } ] }
-    , { enabled: false, filter: '*://www.ossrb.org/*',            rules: [ { match: '^(https?)://www.ossrb.org/(.*)?#lat$',                           redirect: '$1://www.ossrb.org/$2#cyr'                   } ] }
-    , { enabled: false, filter: '*://www.etf.bg.ac.rs/*',         rules: [ { match: '^(https?)://www.etf.bg.ac.rs/sr-lat/(.*)$',                      redirect: '$1://www.etf.bg.ac.rs/sr/$2'                 } ] }
-    , { enabled: false, filter: '*://www.tf.uns.ac.rs/*',         rules: [ { match: '^(https?)://www.tf.uns.ac.rs/(.*)?#lat$',                        redirect: '$1://www.tf.uns.ac.rs/$2#cyr'                } ] }
-    , { enabled: false, filter: '*://www.gspns.co.rs/*',          rules: [ { match: '^(https?)://www.gspns.co.rs/(.*)?selected_lang=lat$',            redirect: '$1://www.gspns.co.rs/$2?selected_lang=cir'   } ] }
-];
+var patternsToRules = {
+    '*://elementarium.cpn.rs/*': [1],
+    '*://jadovno.com/*': [2],
+    '*://kim.gov.rs/*': [3],
+    '*://nbs.rs/*': [4],
+    '*://*.sputniknews.com/*': [5],
+    '*://*.sputnikportal.rs/*': [6],
+    '*://*.rt.rs/*': [7],
+    '*://*.rtrs.tv/*': [8],
+    '*://pravda.rs/*': [9],
+    '*://sr.wikipedia.org/*': [10],
+    '*://www.arhiv-beograda.org/*': [11],
+    '*://www.beograd.rs/*': [12],
+    '*://www.bbc.com/serbian/*': [13],
+    '*://www.glassrpske.com/*': [14],
+    '*://www.intermagazin.rs/*': [15],
+    '*://www.kragujevac.rs/*': [16, 17],
+    // '*://www.novosti.rs/*': [19],
+    '*://www.magazin.novosti.rs/*': [20, 21],
+    '*://www.nspm.rs/*': [22],
+    '*://www.politika.rs/*': [23],
+    '*://posta.rs/*': [24, 25, 26],
+    '*://www.rts.rs/*': [27],
+    '*://rts.rs/*': [27],
+    '*://www.rtv.rs/*': [28],
+    // '*://www.rtvbn.com/*': [29],
+    '*://www.standard.rs/*': [30],
+    '*://standard.rs/*': [31],
+    '*://www.uns.org.rs/*': [32, 33],
+    '*://www.vs.rs/*': [34],
+    '*://www.yugoimport.com/*': [35],
+    '*://www.ff.uns.ac.rs/*': [36],
+    '*://www.etf.bg.ac.rs/*': [37],
+    '*://www.tf.uns.ac.rs/*': [38],
+    '*://www.gspns.co.rs/*': [39],
+};
 
-function matchRule(url, rule) {
-    let escapeRegex = (url) => url.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
-    return new RegExp("^" + rule.split("*").map(escapeRegex).join(".*") + "$").test(url);
-}
-
-function getRedirectIndex(url) {
-    for (let i = 0; i < redirects.length; i++) {
-        if (matchRule(url, redirects[i].filter)) {
-            return i;
-        }
-    }
-
-    return -1;
-}
-
-function setRedirect(filter, enabled) {
-    for (let i = 0; i < redirects.length; i++) {
-        if (redirects[i].filter === filter) {
-            redirects[i].enabled = enabled;
-            return;
-        }
-    }
-}
-
-function updateExtensionIcon(isEnabled) {
-    chrome.browserAction.setIcon({
+function updateExtensionIcon(tab, isEnabled) {
+    chrome.action.setIcon({
         path: isEnabled ? {
             "16": "icons/icon-on-16.png",
             "32": "icons/icon-on-32.png",
@@ -95,16 +51,16 @@ function updateExtensionIcon(isEnabled) {
             "48": "icons/icon-off-48.png",
             "128": "icons/icon-off-128.png"
         },
-        tabId: currentTab.id
+        tabId: tab.id
     });
 
-    chrome.browserAction.setTitle({
+    chrome.action.setTitle({
         title: isEnabled ? 'Прикажи оригинал' : 'Ћирилизуј',
-        tabId: currentTab.id
+        tabId: tab.id
     });
 }
 
-chrome.runtime.onInstalled.addListener(function () {
+chrome.runtime.onInstalled.addListener(function (details) {
     console.log('Extension installed');
 
     chrome.storage.local.get({ enabledRedirects: [] }, function (result) {
@@ -112,11 +68,7 @@ chrome.runtime.onInstalled.addListener(function () {
             return;
         }
 
-        let initialEnabledRedirects = [];
-
-        for (var i = 0; i < redirects.length; i++) {
-            initialEnabledRedirects.push(redirects[i].filter);
-        }
+        const initialEnabledRedirects = [];
 
         enabledRedirects = initialEnabledRedirects;
         chrome.storage.local.set({ enabledRedirects: initialEnabledRedirects });
@@ -130,6 +82,7 @@ chrome.runtime.onInstalled.addListener(function () {
 
         const initialEnabledDomains = [
             '24sedam.rs',
+            '6yka.com',
             'autoblog.rs',
             'autorepublika.com',
             'balkanrock.com',
@@ -239,6 +192,7 @@ chrome.runtime.onInstalled.addListener(function () {
             'www.glas-zajecara.com',
             'www.glasamerike.net',
             'www.glassumadije.rs',
+            'www.glaszapadnesrbije.rs',
             'www.halooglasi.com',
             'www.helloworld.rs',
             'www.ikragujevac.com',
@@ -276,6 +230,7 @@ chrome.runtime.onInstalled.addListener(function () {
             'www.novine.ca',
             'www.nuns.rs',
             'www.okradio.rs',
+            'www.ossrb.org',
             'www.personalmag.rs',
             'www.pink.rs',
             'www.pirotskevesti.rs',
@@ -296,6 +251,7 @@ chrome.runtime.onInstalled.addListener(function () {
             'www.subotica.com',
             'www.sumedija.rs',
             'www.svetplus.com',
+            'www.tanjug.rs',
             'www.telegraf.rs',
             'www.telegraf.tv',
             'www.totalcar.rs',
@@ -322,98 +278,121 @@ chrome.runtime.onInstalled.addListener(function () {
 });
 
 
-function toggleDomain() {
-    const currentTabDomain = getDomain(currentTab.url);
+function toggleDomain(tab) {
+    const tabDomain = getDomain(tab.url);
 
-    if (currentTabDomain === '') {
+    if (tabDomain === '') {
         return;
     }
 
-    let redirectIndex = getRedirectIndex(currentTab.url);
-    if (redirectIndex !== -1) {
-        let filter = redirects[redirectIndex].filter;
-        const redirectIsEnabled = redirects[redirectIndex].enabled;
-        redirects[redirectIndex].enabled = !redirects[redirectIndex].enabled;
-
-        if (redirectIsEnabled) {
-            enabledRedirects = enabledRedirects.filter(item => item !== filter);
+    const matchingPattern = getMatchingPattern(tab.url);
+    if (matchingPattern) {
+        if (enabledRedirects.includes(matchingPattern)) {
+            enabledRedirects = enabledRedirects.filter(item => item !== matchingPattern);
             chrome.storage.local.set({ enabledRedirects: enabledRedirects });
-            showOriginalPage();
+
+            chrome.declarativeNetRequest.updateStaticRules({
+                rulesetId: 'map',
+                disableRuleIds: patternsToRules[matchingPattern],
+            })
+
+            showOriginalPage(tab);
 
             return;
         }
 
-        enabledRedirects.push(filter);
+        enabledRedirects.push(matchingPattern);
         chrome.storage.local.set({ enabledRedirects: enabledRedirects });
-        redirectPage(redirects[redirectIndex]);
+        redirectPage(tab);
+
+        chrome.declarativeNetRequest.updateStaticRules({
+            rulesetId: 'map',
+            enableRuleIds: patternsToRules[matchingPattern],
+        });
 
         return;
     }
 
-    if (enabledDomains.includes(currentTabDomain)) {
-        enabledDomains = enabledDomains.filter(item => item !== currentTabDomain);
+    if (enabledDomains.includes(tabDomain)) {
+        enabledDomains = enabledDomains.filter(item => item !== tabDomain);
         chrome.storage.local.set({ enabledDomains: enabledDomains });
-
-        showOriginalPage();
+        showOriginalPage(tab);
 
         return;
     }
 
-    enabledDomains.push(currentTabDomain);
+    enabledDomains.push(tabDomain);
     chrome.storage.local.set({ enabledDomains: enabledDomains });
-
-    transliteratePage();
+    transliteratePage(tab);
 }
 
 
-function transliteratePage() {
-    chrome.tabs.executeScript(currentTab.id, {
-        allFrames: true,
-        file: '/content.js',
-        runAt: 'document_end'
+function transliteratePage(tab) {
+    chrome.scripting.executeScript({
+        target: {
+            tabId: tab.id,
+            allFrames: true
+        },
+        files: ['/content.js']
     });
 
-    updateExtensionIcon(true);
-    chrome.tabs.sendMessage(currentTab.id, { isEnabled: true });
+    updateExtensionIcon(tab, true);
+    chrome.tabs.sendMessage(tab.id, { isEnabled: true });
 }
 
-function redirectPage(redirect) {
-    updateExtensionIcon(true);
-
-    const newUrl = getCyrillicVersionUrl(currentTab.url, redirect);
-    if (currentTab.url !== newUrl) {
-        chrome.tabs.executeScript(currentTab.id, {
-            code: `window.location.replace('${newUrl}');`
-        });
-    }
+function matchPattern(url, pattern) {
+    let escapeRegex = (url) => url.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
+    return new RegExp("^" + pattern.split("*").map(escapeRegex).join(".*") + "$").test(url);
 }
 
-function showOriginalPage() {
-    updateExtensionIcon(false);
-    chrome.tabs.sendMessage(currentTab.id, { isEnabled: false });
-}
-
-function updateActiveTab() {
-    function updateTab(tabs) {
-        if (tabs[0]) {
-            currentTab = tabs[0];
-
-            const currentTabDomain = getDomain(currentTab.url);
-
-            if (currentTabDomain) {
-                let redirectIndex = getRedirectIndex(currentTab.url);
-                if (redirectIndex !== -1 && redirects[redirectIndex].enabled) {
-                    redirectPage(currentTab.url, redirects[redirectIndex]);
-                } else if (enabledDomains.includes(currentTabDomain)) {
-                    transliteratePage();
-                } else {
-                    showOriginalPage();
-                }
-            }
+function getMatchingPattern(url) {
+    for (const [pattern, rules] of Object.entries(patternsToRules)) {
+        if (matchPattern(url, pattern)) {
+            return pattern;
         }
     }
 
-    chrome.tabs.query({active: true, currentWindow: true}, updateTab);
+    return '';
+}
+
+function redirectPage(tab) {
+    updateExtensionIcon(tab, true);
+}
+
+function showOriginalPage(tab) {
+    updateExtensionIcon(tab, false);
+
+    chrome.tabs.sendMessage(tab.id, { isEnabled: false }, function (response) {
+        if (chrome.runtime.lastError) {
+            // The content script is not present in this tab. Do nothing.
+        }
+    });
+}
+
+function updateActiveTab() {
+    chrome.tabs.query({active: true, currentWindow: true}, ([activeTab]) => {
+        if (!activeTab) {
+            return;
+        }
+
+        const activeTabDomain = getDomain(activeTab.url);
+        if (activeTabDomain === '') {
+            return;
+        }
+
+        const matchingPattern = getMatchingPattern(activeTab.url);
+        if (enabledRedirects.includes(matchingPattern)) {
+            redirectPage(activeTab);
+            return;
+        }
+
+        if (enabledDomains.includes(activeTabDomain)) {
+            transliteratePage(activeTab);
+            return;
+        }
+
+        showOriginalPage(activeTab);
+    });
 }
 
 function getDomain(urlString) {
@@ -435,72 +414,9 @@ function getDomain(urlString) {
     return url.hostname;
 }
 
-function getCyrillicVersionUrl(originalUrl, redirect) {
-    if (!redirect.enabled) {
-        return originalUrl;
-    }
-
-    let cyrillicVersionUrl = originalUrl;
-
-    for (let i = 0; i < redirect.rules.length; i++) {
-        const rule = redirect.rules[i];
-
-        const rx = new RegExp(rule.match, 'gi');
-        const matches = rx.exec(originalUrl);
-
-        if (matches) {
-            cyrillicVersionUrl = rule.redirect;
-
-            for (let j = 0; j < matches.length; j++) {
-                let str = matches[j] || '';
-                cyrillicVersionUrl = cyrillicVersionUrl.replace(new RegExp('\\$' + j, 'gi'), str);
-            }
-
-            break;
-        }
-    }
-
-    return cyrillicVersionUrl;
-}
-
-function handleNewRequest(info) {
-    let redirectUrl = info.url;
-    const redirectIndex = getRedirectIndex(info.url);
-
-    if (redirectIndex !== -1) {
-        const redirect = redirects[redirectIndex];
-        redirectUrl = getCyrillicVersionUrl(info.url, redirect);
-    }
-
-    if (redirectUrl === info.url) {
-        return;
-    }
-
-    if (redirectUrl === lastRedirectedUrl) {
-        console.log('Redirect loop detected. Aborting...');
-        return;
-    }
-
-    lastRedirectedUrl = redirectUrl;
-
-    return { redirectUrl: redirectUrl };
-}
-
 chrome.storage.local.get({ enabledRedirects: [] }, function (result) {
     enabledRedirects = result.enabledRedirects;
     console.log('Loaded redirects', enabledRedirects);
-
-    for (let i = 0; i < enabledRedirects.length; i++) {
-        setRedirect(enabledRedirects[i], true);
-    }
-
-    let urls = [];
-    for (let i = 0; i < redirects.length; i++) {
-        urls.push(redirects[i].filter);
-    }
-
-    const filter = { urls: urls, types: ['main_frame'] };
-    chrome.webRequest.onBeforeRequest.addListener(handleNewRequest, filter, ['blocking']);
 });
 
 chrome.storage.local.get({enabledDomains: []}, function (result) {
@@ -508,7 +424,9 @@ chrome.storage.local.get({enabledDomains: []}, function (result) {
     console.log('Loaded domains', enabledDomains);
 });
 
-chrome.browserAction.onClicked.addListener(toggleDomain);
+
+chrome.action.onClicked.addListener(toggleDomain);
+
 chrome.tabs.onUpdated.addListener(updateActiveTab);
 chrome.tabs.onActivated.addListener(updateActiveTab);
 chrome.windows.onFocusChanged.addListener(updateActiveTab);

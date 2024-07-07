@@ -1,0 +1,610 @@
+[
+    {
+        "id" : 1,
+        "condition": {
+            "urlFilter": "||elementarium.cpn.rs",
+            "resourceTypes": ["main_frame"]
+        },
+        "action": {
+            "type": "redirect",
+            "redirect": {
+                "transform": {
+                    "queryTransform": {
+                        "addOrReplaceParams": [
+                            {
+                                "key": "script",
+                                "value": "cir",
+                                "replaceOnly": true
+                            }
+                        ]
+                    }
+                }
+            }
+        }
+    },
+    {
+        "id" : 2,
+        "condition": {
+            "urlFilter": "||jadovno.com",
+            "resourceTypes": ["main_frame"]
+        },
+        "action": {
+            "type": "redirect",
+            "redirect": {
+                "transform": {
+                    "queryTransform": {
+                        "addOrReplaceParams": [
+                            {
+                                "key": "lng",
+                                "value": "cir",
+                                "replaceOnly": true
+                            }
+                        ]
+                    }
+                }
+            }
+        }
+    },
+    {
+        "id" : 3,
+        "condition": {
+            "regexFilter": "^(https?)://kim.gov.rs/lat/(.*)$",
+            "resourceTypes": ["main_frame"]
+        },
+        "action": {
+            "type": "redirect",
+            "redirect": {
+                "regexSubstitution": "\\1://kim.gov.rs/\\2"
+            }
+        }
+    },
+    {
+        "id" : 4,
+        "condition": {
+            "regexFilter": "^(https?)://nbs.rs/sr/(.*)$",
+            "resourceTypes": ["main_frame"]
+        },
+        "action": {
+            "type": "redirect",
+            "redirect": {
+                "regexSubstitution": "\\1://nbs.rs/sr_RS/\\2"
+            }
+        }
+    },
+    {
+        "id" : 5,
+        "condition": {
+            "urlFilter": "||rs-lat.sputniknews.com",
+            "resourceTypes": ["main_frame"]
+        },
+        "action": {
+            "type": "redirect",
+            "redirect": {
+                "transform": {
+                    "host": "rs.sputniknews.com"
+                }
+            }
+        }
+    },
+    {
+        "id" : 6,
+        "condition": {
+            "urlFilter": "||lat.sputnikportal.rs",
+            "resourceTypes": ["main_frame"]
+        },
+        "action": {
+            "type": "redirect",
+            "redirect": {
+                "transform": {
+                    "host": "sputnikportal.rs"
+                }
+            }
+        }
+    },
+    {
+        "id" : 7,
+        "condition": {
+            "urlFilter": "||lat.rt.rs",
+            "resourceTypes": ["main_frame"]
+        },
+        "action": {
+            "type": "redirect",
+            "redirect": {
+                "transform": {
+                    "host": "rt.rs"
+                }
+            }
+        }
+    },
+    {
+        "id" : 8,
+        "condition": {
+            "urlFilter": "||lat.rtrs.tv",
+            "resourceTypes": ["main_frame"]
+        },
+        "action": {
+            "type": "redirect",
+            "redirect": {
+                "transform": {
+                    "host": "www.rtrs.tv"
+                }
+            }
+        }
+    },
+    {
+        "id" : 9,
+        "condition": {
+            "regexFilter": "^(https?)://pravda.rs/lat/(.*)$",
+            "resourceTypes": ["main_frame"]
+        },
+        "action": {
+            "type": "redirect",
+            "redirect": {
+                "regexSubstitution": "\\1://pravda.rs/\\2"
+            }
+        }
+    },
+    {
+        "id" : 10,
+        "condition": {
+            "regexFilter": "^(https?)://sr.wikipedia.org/(?:wiki|sr|sr-el)/(.*)$",
+            "resourceTypes": ["main_frame"]
+        },
+        "action": {
+            "type": "redirect",
+            "redirect": {
+                "regexSubstitution": "\\1://sr.wikipedia.org/sr-ec/\\2"
+            }
+        }
+    },
+    {
+        "id": 11,
+        "condition": {
+            "regexFilter": "^(https?)://www.arhiv-beograda.org/sr/(.*)$",
+            "resourceTypes": [
+                "main_frame"
+            ]
+        },
+        "action": {
+            "type": "redirect",
+            "redirect": {
+                "regexSubstitution": "\\1://www.arhiv-beograda.org/rs/\\2"
+            }
+        }
+    },
+    {
+        "id": 12,
+        "condition": {
+            "regexFilter": "^(https?)://www.beograd.rs/lat/(.*)$",
+            "resourceTypes": [
+                "main_frame"
+            ]
+        },
+        "action": {
+            "type": "redirect",
+            "redirect": {
+                "regexSubstitution": "\\1://www.beograd.rs/cir/\\2"
+            }
+        }
+    },
+    {
+        "id": 13,
+        "condition": {
+            "regexFilter": "^(https?)://www.bbc.com/serbian/lat(/?)(.*)$",
+            "resourceTypes": [
+                "main_frame"
+            ]
+        },
+        "action": {
+            "type": "redirect",
+            "redirect": {
+                "regexSubstitution": "\\1://www.bbc.com/serbian/cyr\\2\\3"
+            }
+        }
+    },
+    {
+        "id": 14,
+        "condition": {
+            "regexFilter": "^(https?)://www.glassrpske.com/lat(/?)(.*)$",
+            "resourceTypes": [
+                "main_frame"
+            ]
+        },
+        "action": {
+            "type": "redirect",
+            "redirect": {
+                "regexSubstitution": "\\1://www.glassrpske.com/cir\\2\\3"
+            }
+        }
+    },
+    {
+        "id" : 15,
+        "condition": {
+            "urlFilter": "||www.intermagazin.rs",
+            "resourceTypes": ["main_frame"]
+        },
+        "action": {
+            "type": "redirect",
+            "redirect": {
+                "transform": {
+                    "queryTransform": {
+                        "addOrReplaceParams": [
+                            {
+                                "key": "lang",
+                                "value": "cir"
+                            }
+                        ]
+                    }
+                }
+            }
+        }
+    },
+    {
+        "id": 16,
+        "condition": {
+            "regexFilter": "^(https?)://kragujevac.ls.gov.rs/(tekst|sekcija)/sr/(.*)$",
+            "resourceTypes": [
+                "main_frame"
+            ]
+        },
+        "action": {
+            "type": "redirect",
+            "redirect": {
+                "regexSubstitution": "\\1://kragujevac.ls.gov.rs/\\2/\\3"
+            }
+        }
+    },
+    {
+        "id" : 17,
+        "condition": {
+            "urlFilter": "||arhiva.kragujevac.rs",
+            "resourceTypes": ["main_frame"]
+        },
+        "action": {
+            "type": "redirect",
+            "redirect": {
+                "transform": {
+                    "queryTransform": {
+                        "addOrReplaceParams": [
+                            {
+                                "key": "lang",
+                                "value": "cir",
+                                "replaceOnly": true
+                            }
+                        ]
+                    }
+                }
+            }
+        }
+    },
+    {
+        "id": 18,
+        "condition": {
+            "regexFilter": "^(https?)://www.mod.gov.rs/lat(.*)$",
+            "resourceTypes": [
+                "main_frame"
+            ]
+        },
+        "action": {
+            "type": "redirect",
+            "redirect": {
+                "regexSubstitution": "\\1://www.mod.gov.rs/lat\\2"
+            }
+        }
+    },
+    {
+        "id": 20,
+        "condition": {
+            "regexFilter": "^(https?)://www.magazin.novosti.rs/$",
+            "resourceTypes": [
+                "main_frame"
+            ]
+        },
+        "action": {
+            "type": "redirect",
+            "redirect": {
+                "regexSubstitution": "\\1://www.magazin.novosti.rs/scc/"
+            }
+        }
+    },
+    {
+        "id": 21,
+        "condition": {
+            "regexFilter": "^(https?)://www.magazin.novosti.rs/sr/(.*?)$",
+            "resourceTypes": [
+                "main_frame"
+            ]
+        },
+        "action": {
+            "type": "redirect",
+            "redirect": {
+                "regexSubstitution": "\\1://www.magazin.novosti.rs/scc/\\2"
+            }
+        }
+    },
+    {
+        "id" : 22,
+        "condition": {
+            "urlFilter": "||www.nspm.rs",
+            "resourceTypes": ["main_frame"]
+        },
+        "action": {
+            "type": "redirect",
+            "redirect": {
+                "transform": {
+                    "queryTransform": {
+                        "addOrReplaceParams": [
+                            {
+                                "key": "alphabet",
+                                "value": "c",
+                                "replaceOnly": true
+                            }
+                        ]
+                    }
+                }
+            }
+        }
+    },
+    {
+        "id": 23,
+        "condition": {
+            "regexFilter": "^(https?)://www.politika.rs/sr(/?)(.*)$",
+            "resourceTypes": [
+                "main_frame"
+            ]
+        },
+        "action": {
+            "type": "redirect",
+            "redirect": {
+                "regexSubstitution": "\\1://www.politika.rs/scc\\2\\3"
+            }
+        }
+    },
+    {
+        "id": 24,
+        "condition": {
+            "regexFilter": "^(https?)://posta.rs/lat/(.*)$",
+            "resourceTypes": [
+                "main_frame"
+            ]
+        },
+        "action": {
+            "type": "redirect",
+            "redirect": {
+                "regexSubstitution": "\\1://posta.rs/cir\\2"
+            }
+        }
+    },
+    {
+        "id": 25,
+        "condition": {
+            "regexFilter": "^(https?)://posta.rs/index-privreda-lat.aspx$",
+            "resourceTypes": [
+                "main_frame"
+            ]
+        },
+        "action": {
+            "type": "redirect",
+            "redirect": {
+                "regexSubstitution": "\\1://posta.rs/index-privreda-cir.aspx"
+            }
+        }
+    },
+    {
+        "id": 26,
+        "condition": {
+            "regexFilter": "^(https?)://posta.rs/index-stanovnistvo-lat.aspx$",
+            "resourceTypes": [
+                "main_frame"
+            ]
+        },
+        "action": {
+            "type": "redirect",
+            "redirect": {
+                "regexSubstitution": "\\1://posta.rs/index.aspx"
+            }
+        }
+    },
+    {
+        "id": 27,
+        "condition": {
+            "regexFilter": "^(https?)://(www\\.)?rts.rs/lat/(.*)$",
+            "resourceTypes": [
+                "main_frame"
+            ]
+        },
+        "action": {
+            "type": "redirect",
+            "redirect": {
+                "regexSubstitution": "\\1://\\2rts.rs/\\3"
+            }
+        }
+    },
+    {
+        "id": 28,
+        "condition": {
+            "regexFilter": "^(https?)://www.rtv.rs/sr_lat/(.*)$",
+            "resourceTypes": [
+                "main_frame"
+            ]
+        },
+        "action": {
+            "type": "redirect",
+            "redirect": {
+                "regexSubstitution": "\\1://www.rtv.rs/sr_ci/\\2"
+            }
+        }
+    },
+    {
+        "id" : 30,
+        "condition": {
+            "urlFilter": "||www.standard.rs",
+            "resourceTypes": ["main_frame"]
+        },
+        "action": {
+            "type": "redirect",
+            "redirect": {
+                "transform": {
+                    "queryTransform": {
+                        "addOrReplaceParams": [
+                            {
+                                "key": "alphabet",
+                                "value": "cyrillic"
+                            }
+                        ]
+                    }
+                }
+            }
+        }
+    },
+    {
+        "id" : 31,
+        "condition": {
+            "urlFilter": "||standard.rs",
+            "resourceTypes": ["main_frame"]
+        },
+        "action": {
+            "type": "redirect",
+            "redirect": {
+                "transform": {
+                    "queryTransform": {
+                        "addOrReplaceParams": [
+                            {
+                                "key": "alphabet",
+                                "value": "cyrillic"
+                            }
+                        ]
+                    }
+                }
+            }
+        }
+    },
+    {
+        "id": 32,
+        "condition": {
+            "regexFilter": "^(https?)://www.uns.org.rs/sr.html",
+            "resourceTypes": [
+                "main_frame"
+            ]
+        },
+        "action": {
+            "type": "redirect",
+            "redirect": {
+                "regexSubstitution": "\\1://www.uns.org.rs/"
+            }
+        }
+    },
+    {
+        "id": 33,
+        "condition": {
+            "regexFilter": "^(https?)://www.uns.org.rs/sr/(.*)$",
+            "resourceTypes": [
+                "main_frame"
+            ]
+        },
+        "action": {
+            "type": "redirect",
+            "redirect": {
+                "regexSubstitution": "\\1://www.uns.org.rs/\\2"
+            }
+        }
+    },
+    {
+        "id": 34,
+        "condition": {
+            "regexFilter": "^(https?)://www.vs.rs/sr_lat(.*)$",
+            "resourceTypes": [
+                "main_frame"
+            ]
+        },
+        "action": {
+            "type": "redirect",
+            "redirect": {
+                "regexSubstitution": "\\1://www.vs.rs/sr_cyr\\2"
+            }
+        }
+    },
+    {
+        "id": 35,
+        "condition": {
+            "regexFilter": "^(https?)://www.yugoimport.com/lat(.*)$",
+            "resourceTypes": [
+                "main_frame"
+            ]
+        },
+        "action": {
+            "type": "redirect",
+            "redirect": {
+                "regexSubstitution": "\\1://www.yugoimport.com/cir\\2"
+            }
+        }
+    },
+    {
+        "id": 36,
+        "condition": {
+            "regexFilter": "^(https?)://www.ff.uns.ac.rs/sr-lat/(.*)$",
+            "resourceTypes": [
+                "main_frame"
+            ]
+        },
+        "action": {
+            "type": "redirect",
+            "redirect": {
+                "regexSubstitution": "\\1://www.ff.uns.ac.rs/sr/\\2"
+            }
+        }
+    },
+    {
+        "id": 37,
+        "condition": {
+            "regexFilter": "^(https?)://www.etf.bg.ac.rs/sr-lat/(.*)$",
+            "resourceTypes": [
+                "main_frame"
+            ]
+        },
+        "action": {
+            "type": "redirect",
+            "redirect": {
+                "regexSubstitution": "\\1://www.etf.bg.ac.rs/sr/\\2"
+            }
+        }
+    },
+    {
+        "id": 38,
+        "condition": {
+            "regexFilter": "^(https?)://www.tf.uns.ac.rs/(.*)?#lat$",
+            "resourceTypes": [
+                "main_frame"
+            ]
+        },
+        "action": {
+            "type": "redirect",
+            "redirect": {
+                "regexSubstitution": "\\1://www.tf.uns.ac.rs/\\2#cyr"
+            }
+        }
+    },
+    {
+        "id" : 39,
+        "condition": {
+            "urlFilter": "||www.gspns.co.rs",
+            "resourceTypes": ["main_frame"]
+        },
+        "action": {
+            "type": "redirect",
+            "redirect": {
+                "transform": {
+                    "queryTransform": {
+                        "addOrReplaceParams": [
+                            {
+                                "key": "selected_lang",
+                                "value": "cir",
+                                "replaceOnly": true
+                            }
+                        ]
+                    }
+                }
+            }
+        }
+    }
+]
