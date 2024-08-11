@@ -142,6 +142,7 @@ if (window.contentScriptInjected !== true) {
         "natha",
         "natho",
         "ommetar",
+        "othran",
         "penthaus",
         "poddirektor",
         "poddisciplin",
