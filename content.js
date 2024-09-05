@@ -113,7 +113,7 @@ if (window.contentScriptInjected !== true) {
 
 
     // Temporary fix for United Media sites with faulty "Exo 2" font.
-    // var fontAffectedSites = [
+    // let fontAffectedSites = [
     // ];
     // if (fontAffectedSites.includes(window.location.hostname)) {
     //     initialMap["đ"] = "ћ";
@@ -121,7 +121,7 @@ if (window.contentScriptInjected !== true) {
     //     initialMap["ć"] = "ђ";
     // }
 
-    var serbianWordsWithForeignCharacterCombinations = [
+    const serbianWordsWithForeignCharacterCombinations = [
         "alchajmer",
         "ammar",
         "amss",
@@ -171,7 +171,7 @@ if (window.contentScriptInjected !== true) {
         "vannastav",
     ];
 
-    var commonForeignWords = [
+    const commonForeignWords = [
         "administration",
         "adobe",
         "advanced",
@@ -262,7 +262,7 @@ if (window.contentScriptInjected !== true) {
         "viber",
     ];
 
-    var wholeForeignWords = [
+    const wholeForeignWords = [
         "about",
         "air",
         "alpha",
@@ -316,7 +316,7 @@ if (window.contentScriptInjected !== true) {
         "visa",
     ];
 
-    var foreignCharacterCombinations = [
+    const foreignCharacterCombinations = [
         'q',
         'w',
         'x',
@@ -359,7 +359,7 @@ if (window.contentScriptInjected !== true) {
         '™',
     ];
 
-    var digraphExceptions = {
+    const digraphExceptions = {
         "dj": [
             "adjektiv",
             "adjunkt",
@@ -660,7 +660,7 @@ if (window.contentScriptInjected !== true) {
     };
 
     // See: https://en.wikipedia.org/wiki/Zero-width_non-joiner
-    var digraphReplacements = {
+    const digraphReplacements = {
         "dj": {
             "dj": "d\u200Cj",
             "Dj": "D\u200Cj",
@@ -701,7 +701,7 @@ if (window.contentScriptInjected !== true) {
         return trie;
     }
 
-    var trie = buildTrie(initialMap);
+    const trie = buildTrie(initialMap);
     console.log("Ћирилизатор - Caching and replacing text on page " + window.location.href);
     processText(document, 'cache-replace');
 

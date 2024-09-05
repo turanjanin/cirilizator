@@ -1,7 +1,7 @@
-var enabledDomains = [];
-var enabledRedirects = [];
+let enabledDomains = [];
+let enabledRedirects = [];
 
-var patternsToRules = {
+let patternsToRules = {
     '*://elementarium.cpn.rs/*': [1],
     '*://jadovno.com/*': [2],
     '*://kim.gov.rs/*': [3],
