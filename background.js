@@ -68,8 +68,7 @@ chrome.runtime.onInstalled.addListener(function (details) {
             return;
         }
 
-        const initialEnabledRedirects = [];
-
+        const initialEnabledRedirects = Array.from(Object.keys(patternsToRules));
         enabledRedirects = initialEnabledRedirects;
         chrome.storage.local.set({ enabledRedirects: initialEnabledRedirects });
         console.log('Initial redirect list stored');
@@ -92,6 +91,7 @@ chrome.runtime.onInstalled.addListener(function (details) {
             'besplatniprogrami.org',
             'beta.rs',
             'bif.rs',
+            'biznis.kurir.rs',
             'brainz.center',
             'bujanovacke.co.rs',
             'buro247.rs',
@@ -334,10 +334,10 @@ function transliteratePage(tab) {
             allFrames: true
         },
         files: ['/content.js']
+    }).then(() => {
+        updateExtensionIcon(tab, true);
+        chrome.tabs.sendMessage(tab.id, { isEnabled: true });
     });
-
-    updateExtensionIcon(tab, true);
-    chrome.tabs.sendMessage(tab.id, { isEnabled: true });
 }
 
 function matchPattern(url, pattern) {
@@ -356,7 +356,15 @@ function getMatchingPattern(url) {
 }
 
 function redirectPage(tab) {
-    updateExtensionIcon(tab, true);
+    // Trigger page reload in order for declarativeNetRequest rules to perform the actual redirection.
+    chrome.scripting.executeScript({
+        target: {
+            tabId: tab.id
+        },
+        files: ['/reload.js']
+    }).then(() => {
+        updateExtensionIcon(tab, true);
+    });
 }
 
 function showOriginalPage(tab) {
@@ -382,7 +390,7 @@ function updateActiveTab() {
 
         const matchingPattern = getMatchingPattern(activeTab.url);
         if (enabledRedirects.includes(matchingPattern)) {
-            redirectPage(activeTab);
+            updateExtensionIcon(activeTab, true);
             return;
         }
 
@@ -427,9 +435,9 @@ chrome.storage.local.get({enabledDomains: []}, function (result) {
 
 chrome.action.onClicked.addListener(toggleDomain);
 
-chrome.tabs.onUpdated.addListener(updateActiveTab);
 chrome.tabs.onActivated.addListener(updateActiveTab);
-chrome.windows.onFocusChanged.addListener(updateActiveTab);
-
-
-updateActiveTab();
+chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+    if (changeInfo.status && changeInfo.status === 'loading') {
+        updateActiveTab();
+    }
+});

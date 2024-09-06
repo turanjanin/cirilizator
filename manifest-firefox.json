@@ -5,7 +5,7 @@
     "author": "Јован Турањанин",
     "version": "3.0",
     "background": {
-        "service_worker": "background.js"
+        "scripts": ["background.js"]
     },
     "action": {
         "default_icon": {

@@ -1,4 +1,6 @@
+_metadata/
 build/
 .idea/
 *.swp
 .DS_Store
+manifest.json
