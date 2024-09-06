@@ -41,15 +41,15 @@ let patternsToRules = {
 function updateExtensionIcon(tab, isEnabled) {
     chrome.action.setIcon({
         path: isEnabled ? {
-            "16": "icons/icon-on-16.png",
-            "32": "icons/icon-on-32.png",
-            "48": "icons/icon-on-48.png",
-            "128": "icons/icon-on-128.png"
+            '16': '/icons/icon-on-16.png',
+            '32': '/icons/icon-on-32.png',
+            '48': '/icons/icon-on-48.png',
+            '128': '/icons/icon-on-128.png'
         } : {
-            "16": "icons/icon-off-16.png",
-            "32": "icons/icon-off-32.png",
-            "48": "icons/icon-off-48.png",
-            "128": "icons/icon-off-128.png"
+            '16': '/icons/icon-off-16.png',
+            '32': '/icons/icon-off-32.png',
+            '48': '/icons/icon-off-48.png',
+            '128': '/icons/icon-off-128.png'
         },
         tabId: tab.id
     });
@@ -333,7 +333,7 @@ function transliteratePage(tab) {
             tabId: tab.id,
             allFrames: true
         },
-        files: ['/content.js']
+        files: ['/scripts/content.js']
     }).then(() => {
         updateExtensionIcon(tab, true);
         chrome.tabs.sendMessage(tab.id, { isEnabled: true });
@@ -361,7 +361,7 @@ function redirectPage(tab) {
         target: {
             tabId: tab.id
         },
-        files: ['/reload.js']
+        files: ['/scripts/reload.js']
     }).then(() => {
         updateExtensionIcon(tab, true);
     });

@@ -5,7 +5,7 @@
     "author": "Јован Турањанин",
     "version": "3.0",
     "background": {
-        "service_worker": "background.js"
+        "service_worker": "scripts/background.js"
     },
     "action": {
         "default_icon": {
@@ -26,7 +26,7 @@
         "rule_resources" : [{
             "id": "map",
             "enabled": true,
-            "path": "latin-cyrillic-domains.json"
+            "path": "resources/latin-cyrillic-domains.json"
         }]
     },
     "permissions": [
