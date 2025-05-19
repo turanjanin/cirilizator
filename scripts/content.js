@@ -144,6 +144,7 @@ if (window.contentScriptInjected !== true) {
         "ommetar",
         "othran",
         "penthaus",
+        "poddeonic",
         "poddirektor",
         "poddisciplin",
         "poddomen",
