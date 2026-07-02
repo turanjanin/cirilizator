@@ -525,7 +525,7 @@ if (window.contentScriptInjected !== true) {
             "odječ",
             "ondje",
             "opredje",
-            "oskudje"
+            "oskudje",
             "osijedje",
             "osmonedje",
             "otprdjeti",
@@ -717,7 +717,7 @@ if (window.contentScriptInjected !== true) {
             "podžnje",
             "podžupan",
             "predželu",
-            "predžetven"
+            "predžetven",
             "predživot",
         ],
         "nj": [
@@ -742,7 +742,7 @@ if (window.contentScriptInjected !== true) {
             "nekonjug",
             "nekonjunk",
             "netanjahu",
-            "oksianjon"
+            "oksianjon",
             "panjevrej",
             "panjelinsk",
             "panjeremen",
